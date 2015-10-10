@@ -33,9 +33,27 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (controller.collisions.above || controller.collisions.below)
+        if (controller.collisions.below)
         {
             velocity.y = 0;
+            Collider2D obstacle = controller.collisions.transformHitBelow.GetComponent<Collider2D>();
+
+            if (obstacle.gameObject.layer == LayerMask.NameToLayer("ObstacleThrough"))
+            {
+                obstacle.gameObject.layer = LayerMask.NameToLayer("Obstacle");
+            }
+        }
+
+        if(controller.collisions.above)
+        {
+            /*Collider2D playerCollider = gameObject.GetComponent<Collider2D>();
+            Physics2D.IgnoreCollision(controller.collisions.hit, playerCollider);*/
+           
+            Collider2D obstacle = controller.collisions.transformHitAbove.GetComponent<Collider2D>();   
+            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            {
+                obstacle.gameObject.layer = LayerMask.NameToLayer("ObstacleThrough");
+            }
         }
 
         Vector2 input = new Vector2(0, 0);
@@ -67,14 +85,14 @@ public class Player : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    void OnCollisionEnter(Collision collision)
+    /*void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("hit");
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
             Debug.Log("hit with obstacle");
         }
-    }
-
+    }*/
 
     public void setInGame(bool inGame)
     {
