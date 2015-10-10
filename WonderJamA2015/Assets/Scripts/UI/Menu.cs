@@ -4,16 +4,28 @@ using System.Collections;
 
 public class Menu : MonoBehaviour
 {
-
-	// Use this for initialization
-	void Start ()
+    int step = 0;
+    // Use this for initialization
+    void Start ()
     {
-	    
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        Text startText = GetComponentInChildren<Text>();
-	}
+        ManageInput();
+    }
+
+    void ManageInput()
+    {
+        if(Input.GetButtonDown("Start"))
+        {
+            if(step == 0)
+            {
+                Text startText = GetComponentInChildren<Text>();
+                startText.enabled = false;
+            }
+        }
+    }
 }
