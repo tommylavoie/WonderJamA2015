@@ -23,6 +23,10 @@ public class Player : MonoBehaviour
     int face = 1;
     int turnNumber = 0;
 
+    public AudioClip Debut;
+    public AudioClip Attack;
+    public AudioClip Victoire;
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
