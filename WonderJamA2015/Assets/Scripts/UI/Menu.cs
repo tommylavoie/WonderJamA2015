@@ -10,8 +10,8 @@ public class Menu : MonoBehaviour
     bool changingCharacter = false;
 
     int playerSelection = 0;
-    string player1choice = "";
-    string player2choice = "";
+    int player1choice = -1;
+    int player2choice = -1;
 
     // Use this for initialization
     void Start ()
@@ -61,6 +61,11 @@ public class Menu : MonoBehaviour
             {
                 changingCharacter = false;
             }
+
+            if(Input.GetButtonDown("Fire1"))
+            {
+                chooseCharacter();
+            }
         }
     }
 
@@ -68,6 +73,10 @@ public class Menu : MonoBehaviour
     {
         if(actualCursor < faces.Count-1)
             actualCursor++;
+        if (actualCursor == player1choice)
+            actualCursor++;
+        if (actualCursor == faces.Count)
+            actualCursor -= 2;
         moveCursor();  
     }
 
@@ -75,6 +84,10 @@ public class Menu : MonoBehaviour
     {
         if (actualCursor > 0)
             actualCursor--;
+        if (actualCursor == player1choice)
+            actualCursor--;
+        if (actualCursor == -1)
+            actualCursor += 2;
         moveCursor();
     }
 
@@ -86,10 +99,17 @@ public class Menu : MonoBehaviour
 
     void chooseCharacter()
     {
-        string choice = getCharacter(actualCursor);
+        SpriteRenderer renderer = faces[actualCursor].GetComponent<SpriteRenderer>();
+        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, .5f);
         if(playerSelection == 0)
         {
-
+            player1choice = actualCursor;
+            nextPlayer();
+        }
+        else if(playerSelection == 1)
+        {
+            player2choice = actualCursor;
+            startGame();
         }
     }
 
@@ -105,5 +125,24 @@ public class Menu : MonoBehaviour
             case 4: character = "Trudeau"; break;
         }
         return character;
+    }
+
+    void nextPlayer()
+    {
+        playerSelection++;
+        if(player1choice != 0)
+            actualCursor = 0;
+        else
+            actualCursor = 1;
+        moveCursor();
+    }
+
+    void startGame()
+    {
+        string player1 = getCharacter(player1choice);
+        string player2 = getCharacter(player2choice);
+        PlayerPrefs.SetString("Player1", player1);
+        PlayerPrefs.SetString("Player2", player2);
+        Application.LoadLevel("MainScene");
     }
 }
