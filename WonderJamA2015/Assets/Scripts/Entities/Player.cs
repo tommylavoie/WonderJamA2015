@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     bool inGame = true;
     bool isTurn = false;
+    int face = 1;
 
     void Start()
     {
@@ -42,9 +43,18 @@ public class Player : MonoBehaviour
         {
             input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-            if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
+            if (Input.GetButtonDown("Fire2") && controller.collisions.below)
             {
                 velocity.y = jumpVelocity;
+            }
+
+            if(Input.GetAxisRaw("Horizontal") < 0)
+            {
+                setFace(-1);
+            }
+            else if(Input.GetAxisRaw("Horizontal") > 0)
+            {
+                setFace(1);
             }
         }
 
@@ -64,6 +74,11 @@ public class Player : MonoBehaviour
         this.isTurn = turn;
     }
 
+    public void setFace(int face)
+    {
+        this.face = face;
+    }
+
     public bool getInGame()
     {
         return inGame;
@@ -72,5 +87,10 @@ public class Player : MonoBehaviour
     public bool getTurn()
     {
         return isTurn;
+    }
+
+    public int getFace()
+    {
+        return face;
     }
 }
