@@ -27,7 +27,6 @@ public class GameMaster : MonoBehaviour
     {
         Random.seed = (int)System.DateTime.Now.Ticks;
 
-
     }
 
     void start()
