@@ -16,7 +16,7 @@ public class Controller2D : RaycastController
 
     }
 
-    public void Move(Vector3 velocity)
+    public void Move(Vector3 velocity, bool standingOnPlatform = false)
     {
         UpdateRaycastOrigins();
         collisions.Reset();
@@ -36,6 +36,11 @@ public class Controller2D : RaycastController
         }
 
         transform.Translate(velocity);
+
+        if (standingOnPlatform)
+        {
+            collisions.below = true;
+        }
     }
 
     void HorizontalCollisions(ref Vector3 velocity)
@@ -53,6 +58,11 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
+
+                if (hit.distance == 0)
+                {
+                    continue;
+                }
 
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
@@ -97,14 +107,16 @@ public class Controller2D : RaycastController
 
         for (int i = 0; i < verticalRayCount; i++)
         {
+
             Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
+            Debug.DrawLine(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
 
             if (hit)
             {
+
                 velocity.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;
 
