@@ -52,6 +52,11 @@ public class TurnManager : MonoBehaviour
         Invoke("EndTurn", TimePerTurn);
     }
 
+    void FollowCameraToPlayer(Player player)
+    {
+        
+    }
+
     public void EndTurn()
     {
         Debug.Log("NEXT TURN");
