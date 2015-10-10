@@ -15,10 +15,22 @@ public class CameraScript : MonoBehaviour
 	
 	}
 
-    public void SeekCameraToPlayer(Player obj)
+    public void SeekCameraToPlayer(Player obj, float speed)
     {
         float x = obj.transform.position.x;
         float y = obj.transform.position.y;
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(x,y,-10), ref velocity, 0.1f);
+        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(x,y,-10), ref velocity, speed);
+    }
+
+    public void SeekCameraToGoal(EndGoal obj, float speed)
+    {
+        float x = obj.transform.position.x;
+        float y = obj.transform.position.y;
+        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(x, y, -10), ref velocity, speed);
+    }
+
+    public void DirectGoTo(Vector3 position)
+    {
+        transform.position = position;
     }
 }
