@@ -13,9 +13,7 @@ public class PlayerManager : MonoBehaviour
         {
             GameObject[] nodes = GameObject.FindGameObjectsWithTag("Nodes");
             string player1choice = PlayerPrefs.GetString("Player1");
-            Debug.Log(player1choice);
             string player2choice = PlayerPrefs.GetString("Player2");
-            Debug.Log(player2choice);
             foreach (Player player in players)
             {
                 if (player.name.Equals(player1choice))
