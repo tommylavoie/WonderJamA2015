@@ -1,15 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class World : MonoBehaviour {
+/*<summary>
+ * Game's central entity. Is a singleton.
+</summary>*/
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public class GameMaster : MonoBehaviour
+{
+    private static GameMaster _instance;
+
+    public static GameMaster instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<GameMaster>();
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
+    }
+
+    void Start()
+    {
+        Random.seed = (int)System.DateTime.Now.Ticks;
+
+
+    }
+
+    void start()
+    {
+
+    }
+
+    public void OnGUI()
+    {
+
+    }
 }
+
