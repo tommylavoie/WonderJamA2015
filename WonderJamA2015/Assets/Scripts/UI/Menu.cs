@@ -121,7 +121,7 @@ public class Menu : MonoBehaviour
             case 0: character = "Duceppe"; break;
             case 1: character = "Harper"; break;
             case 2: character = "May"; break;
-            case 3: character = "Muclair"; break;
+            case 3: character = "Mulcair"; break;
             case 4: character = "Trudeau"; break;
         }
         return character;

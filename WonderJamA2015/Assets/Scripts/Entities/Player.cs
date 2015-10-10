@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     bool inGame = false;
     bool isTurn = false;
     int face = 1;
+    int turnNumber = 0;
 
     void Start()
     {
@@ -119,6 +120,11 @@ public class Player : MonoBehaviour
         this.face = face;
     }
 
+    public void setTurnNumber(int number)
+    {
+        this.turnNumber = number;
+    }
+
     public bool getInGame()
     {
         return inGame;
@@ -132,5 +138,10 @@ public class Player : MonoBehaviour
     public int getFace()
     {
         return face;
+    }
+
+    public int getTurnNumber()
+    {
+        return turnNumber;
     }
 }

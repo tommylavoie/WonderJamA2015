@@ -30,10 +30,24 @@ public class TurnManager : MonoBehaviour
                 p.setTurn(false);
             }
         }
+        sortPlayers();
         CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
         EndGoal end = GameObject.FindGameObjectWithTag("Goal").GetComponent<EndGoal>();
         cam.DirectGoTo(new Vector3(end.transform.position.x, playerManager.players[0].transform.position.y, -10));
         Invoke("startGame", 4);
+    }
+
+    void sortPlayers()
+    {
+        List<Player> temp = new List<Player>();
+        foreach(Player p in playersInGame)
+        {
+            temp.Add(p);
+        }
+        foreach(Player p in temp)
+        {
+            playersInGame[p.getTurnNumber()] = p;
+        }
     }
 	
 	// Update is called once per frame
