@@ -7,10 +7,15 @@ public class PlatformController : RaycastController
 
     public LayerMask passengerMask;
     public Vector3 move;
+    public bool isLoopingUp;
+
+    private Vector3 velocity;
+    private float time;
 
     public override void Start()
     {
         base.Start();
+        time = 0;
     }
 
     void Update()
@@ -18,11 +23,30 @@ public class PlatformController : RaycastController
 
         UpdateRaycastOrigins();
 
-        Vector3 velocity = move * Time.deltaTime;
+        if (isLoopingUp)
+        {
+            
+            time+=Time.deltaTime;
+
+            if(time <= 5.0f)
+            {
+                velocity = Vector3.up * Time.deltaTime;
+            }
+            else
+            {
+                velocity = Vector3.down * Time.deltaTime;
+                if(time >= 10.0f)
+                {
+                    time = 0.0f;
+                }
+            }
+            
+        }
+
+        velocity = move * Time.deltaTime;
 
         MovePassengers(velocity);
         transform.Translate(velocity);
-
     }
 
     void MovePassengers(Vector3 velocity)
