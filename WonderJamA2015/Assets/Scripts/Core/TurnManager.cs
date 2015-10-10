@@ -30,6 +30,7 @@ public class TurnManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        FollowCameraToPlayer(player);
         Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
         DateTime time = DateTime.Now;
         text.text = "Temps restant: " + Math.Max(TimePerTurn - time.Subtract(turnTime).TotalSeconds,0).ToString("0.00");
@@ -54,7 +55,8 @@ public class TurnManager : MonoBehaviour
 
     void FollowCameraToPlayer(Player player)
     {
-        
+        CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
+        cam.SeekCameraToPlayer(player);
     }
 
     public void EndTurn()

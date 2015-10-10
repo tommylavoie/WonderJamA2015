@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraScript : MonoBehaviour {
+public class CameraScript : MonoBehaviour
+{
+    Vector3 velocity = Vector3.zero;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -13,8 +15,10 @@ public class CameraScript : MonoBehaviour {
 	
 	}
 
-    void SeekCameraToGameObject(GameObject obj)
+    public void SeekCameraToPlayer(Player obj)
     {
-        //Vector3.MoveTowards(transform.position, obj.transform.position)
+        float x = obj.transform.position.x;
+        float y = obj.transform.position.y;
+        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(x,y,-10), ref velocity, 0.1f);
     }
 }
