@@ -80,8 +80,13 @@ public class Player : MonoBehaviour
 
             if (Input.GetButtonDown("Fire1") && controller.collisions.below)
             {
-                //GetComponent<Animator>().Play("Jump");
                 velocity.y = jumpVelocity;
+            }
+
+            if (Input.GetButton("Fire2"))
+            {
+                GetComponent<Animator>().SetBool("Swag", true);
+                //GetComponent<Animator>().Play("Throw");
             }
         }
 
