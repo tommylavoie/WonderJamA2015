@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
 {
-
+    public string name = "";
     public float jumpHeight = 4;
     public float timeToJumpApex = .4f;
     float accelerationTimeAirborne = .2f;
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     Controller2D controller;
 
-    bool inGame = true;
+    bool inGame = false;
     bool isTurn = false;
     int face = 1;
 
@@ -82,6 +82,18 @@ public class Player : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    void initTurn()
+    {
+        if(isTurn)
+        {
+            GetComponentInChildren<Aim>().gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else
+        {
+            GetComponentInChildren<Aim>().gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
+
     public void setInGame(bool inGame)
     {
         this.inGame = inGame;
@@ -90,6 +102,7 @@ public class Player : MonoBehaviour
     public void setTurn(bool turn)
     {
         this.isTurn = turn;
+        initTurn();
     }
 
     public void setFace(int face)

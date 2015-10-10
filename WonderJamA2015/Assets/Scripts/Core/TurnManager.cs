@@ -13,6 +13,8 @@ public class TurnManager : MonoBehaviour
     List<Player> playersInGame;
     DateTime turnTime = DateTime.Now;
 
+    bool started = false;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -22,19 +24,39 @@ public class TurnManager : MonoBehaviour
         foreach(Player p in playerManager.players)
         {
             if (p.getInGame())
+            {
                 playersInGame.Add(p);
+                p.setTurn(false);
+            }
         }
-        nextTurn();
-	}
+        CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
+        Player end = GameObject.FindGameObjectWithTag("Finish").GetComponent<Player>();
+        cam.DirectGoTo(new Vector3(end.transform.position.x, playerManager.players[0].transform.position.y, -10));
+        Invoke("startGame", 4);
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        FollowCameraToPlayer(player);
-        Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
-        DateTime time = DateTime.Now;
-        text.text = "Temps restant: " + Math.Max(TimePerTurn - time.Subtract(turnTime).TotalSeconds,0).ToString("0.00");
+        if (started)
+        {
+            FollowCameraToPlayer(player, 0.1f);
+            Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
+            DateTime time = DateTime.Now;
+            text.text = "Temps restant: " + Math.Max(TimePerTurn - time.Subtract(turnTime).TotalSeconds, 0).ToString("0.00");
+        }
+        else
+        {
+            Player end = GameObject.FindGameObjectWithTag("Finish").GetComponent<Player>();
+            FollowCameraToPlayer(end, 2f);
+        }
 	}
+
+    void startGame()
+    {
+        started = true;
+        nextTurn();
+    }
 
     void nextTurn()
     {
@@ -53,15 +75,14 @@ public class TurnManager : MonoBehaviour
         Invoke("EndTurn", TimePerTurn);
     }
 
-    void FollowCameraToPlayer(Player player)
+    void FollowCameraToPlayer(Player player, float speed)
     {
         CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
-        cam.SeekCameraToPlayer(player);
+        cam.SeekCameraToPlayer(player, speed);
     }
 
     public void EndTurn()
     {
-        Debug.Log("NEXT TURN");
         nextTurn();
     }
 
