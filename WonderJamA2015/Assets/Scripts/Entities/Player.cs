@@ -42,8 +42,18 @@ public class Player : MonoBehaviour
         {
             input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                GetComponent<Animator>().Play("Walk");
+            }
+            if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                GetComponent<Animator>().Play("Walk2");
+            }
+
             if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
             {
+                //GetComponent<Animator>().Play("Jump");
                 velocity.y = jumpVelocity;
             }
         }

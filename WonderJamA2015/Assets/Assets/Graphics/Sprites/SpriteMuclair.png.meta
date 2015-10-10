@@ -1,0 +1,122 @@
+fileFormatVersion: 2
+guid: 5d4d10bd2bb206d44a77101144cdb136
+timeCreated: 1444459565
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: TeteMuclair
+    21300002: Bras1Muclair
+    21300004: Bras2Muclair
+    21300006: Jambe1Muclair
+    21300008: TroncMuclair
+    21300010: Jambe2Muclair
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: TeteMuclair
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 225
+        width: 211
+        height: 275
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Bras1Muclair
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 189
+        width: 87
+        height: 150
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Bras2Muclair
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 174
+        width: 101
+        height: 152
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Jambe1Muclair
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 120
+        height: 145
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: TroncMuclair
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 0
+        width: 137
+        height: 169
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Jambe2Muclair
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 0
+        width: 98
+        height: 141
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
