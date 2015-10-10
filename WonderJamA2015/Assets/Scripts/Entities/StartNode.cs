@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
-public class EndGoal : MonoBehaviour
+public class StartNode : MonoBehaviour
 {
+    public int Player;
 
 	// Use this for initialization
 	void Start ()
     {
-	    
+	
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-	    
+	
 	}
 }

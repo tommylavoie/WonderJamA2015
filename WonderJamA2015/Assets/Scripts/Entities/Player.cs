@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     bool inGame = false;
     bool isTurn = false;
     int face = 1;
+    int turnNumber = 0;
 
     void Start()
     {
@@ -28,7 +29,6 @@ public class Player : MonoBehaviour
 
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-        print("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
     }
 
     void Update()
@@ -44,7 +44,8 @@ public class Player : MonoBehaviour
             }
             if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
             {
-                Debug.Log("ALLO");
+                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
+                turnManager.EndGame(this);
             }
         }
 
@@ -118,6 +119,11 @@ public class Player : MonoBehaviour
         this.face = face;
     }
 
+    public void setTurnNumber(int number)
+    {
+        this.turnNumber = number;
+    }
+
     public bool getInGame()
     {
         return inGame;
@@ -131,5 +137,10 @@ public class Player : MonoBehaviour
     public int getFace()
     {
         return face;
+    }
+
+    public int getTurnNumber()
+    {
+        return turnNumber;
     }
 }

@@ -11,12 +11,31 @@ public class PlayerManager : MonoBehaviour
     {
         if (!AutomaticPlay)
         {
+            GameObject[] nodes = GameObject.FindGameObjectsWithTag("Nodes");
             string player1choice = PlayerPrefs.GetString("Player1");
             string player2choice = PlayerPrefs.GetString("Player2");
             foreach (Player player in players)
             {
-                if (player.name.Equals(player1choice) || player.name.Equals(player2choice))
+                if (player.name.Equals(player1choice))
+                {
                     player.setInGame(true);
+                    foreach(GameObject node in nodes)
+                    {
+                        if (node.GetComponent<StartNode>().Player == 0)
+                            player.transform.position = node.transform.position;
+                    }
+                    player.setTurnNumber(0);
+                }
+                if (player.name.Equals(player2choice))
+                {
+                    player.setInGame(true);
+                    foreach (GameObject node in nodes)
+                    {
+                        if (node.GetComponent<StartNode>().Player == 1)
+                            player.transform.position = node.transform.position;
+                    }
+                    player.setTurnNumber(1);
+                }
             }
         }
         else

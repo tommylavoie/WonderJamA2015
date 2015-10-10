@@ -7,6 +7,7 @@ public class TurnManager : MonoBehaviour
 {
     PlayerManager playerManager;
     public float TimePerTurn = 5;
+    bool isEnding = false;
 
     int turn = -1;
     Player player;
@@ -29,26 +30,43 @@ public class TurnManager : MonoBehaviour
                 p.setTurn(false);
             }
         }
+        sortPlayers();
         CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
         EndGoal end = GameObject.FindGameObjectWithTag("Goal").GetComponent<EndGoal>();
         cam.DirectGoTo(new Vector3(end.transform.position.x, playerManager.players[0].transform.position.y, -10));
         Invoke("startGame", 4);
     }
+
+    void sortPlayers()
+    {
+        List<Player> temp = new List<Player>();
+        foreach(Player p in playersInGame)
+        {
+            temp.Add(p);
+        }
+        foreach(Player p in temp)
+        {
+            playersInGame[p.getTurnNumber()] = p;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (started)
+        if (!isEnding)
         {
-            FollowCameraToPlayer(player, 0.1f);
-            Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
-            DateTime time = DateTime.Now;
-            text.text = "Temps restant: " + Math.Max(TimePerTurn - time.Subtract(turnTime).TotalSeconds, 0).ToString("0.00");
-        }
-        else
-        {
-            EndGoal end = GameObject.FindGameObjectWithTag("Goal").GetComponent<EndGoal>();
-            FollowCameraToGoal(end, 2f);
+            if (started)
+            {
+                FollowCameraToPlayer(player, 0.1f);
+                Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
+                DateTime time = DateTime.Now;
+                text.text = "Temps restant: " + Math.Max(TimePerTurn - time.Subtract(turnTime).TotalSeconds, 0).ToString("0.00");
+            }
+            else
+            {
+                EndGoal end = GameObject.FindGameObjectWithTag("Goal").GetComponent<EndGoal>();
+                FollowCameraToGoal(end, 2f);
+            }
         }
 	}
 
@@ -89,8 +107,22 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurn()
     {
-        nextTurn();
+        if(!isEnding)
+            nextTurn();
     }
 
-
+    public void EndGame(Player winner)
+    {
+        if (!isEnding)
+        {
+            isEnding = true;
+            Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
+            text.text = winner.name + " remporte les élections!";
+            foreach(Player player in playerManager.players)
+            {
+                player.setInGame(false);
+                player.setTurn(false);
+            }
+        }
+    }
 }
