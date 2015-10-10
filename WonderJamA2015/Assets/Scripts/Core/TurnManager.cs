@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
     PlayerManager playerManager;
+    public float TimePerTurn = 5;
 
     int turn = -1;
     Player player;
     List<Player> playersInGame;
+    DateTime turnTime = DateTime.Now;
 
 	// Use this for initialization
 	void Start ()
@@ -26,7 +30,9 @@ public class TurnManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	    
+        Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
+        DateTime time = DateTime.Now;
+        text.text = "Temps restant: " + Math.Max(TimePerTurn - time.Subtract(turnTime).TotalSeconds,0).ToString("0.00");
 	}
 
     void nextTurn()
@@ -42,7 +48,8 @@ public class TurnManager : MonoBehaviour
         player.setTurn(false);
         player = playersInGame[turn];
         player.setTurn(true);
-        Invoke("EndTurn", 5);
+        turnTime = DateTime.Now;
+        Invoke("EndTurn", TimePerTurn);
     }
 
     public void EndTurn()
