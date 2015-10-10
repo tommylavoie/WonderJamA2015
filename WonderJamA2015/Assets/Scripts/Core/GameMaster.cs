@@ -70,7 +70,7 @@ public class GameMaster : MonoBehaviour
             platformSelect = Random.Range(0, Obstacles.Count);
             Vector3 position = new Vector3(Random.Range(-16.0F + (i * 6), -11.0F + (i * 6)), 14.0F, 0);
             Transform Obstacle = (Transform)Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
-        } 
+        }
     }
 
     public void OnGUI()

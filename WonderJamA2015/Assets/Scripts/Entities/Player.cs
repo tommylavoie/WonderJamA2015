@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     bool inGame = true;
     bool isTurn = false;
+    int face = 1;
 
     void Start()
     {
@@ -45,13 +46,15 @@ public class Player : MonoBehaviour
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
                 GetComponent<Animator>().Play("Walk");
+                setFace(1);
             }
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
                 GetComponent<Animator>().Play("Walk2");
+                setFace(-1);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
+            if (Input.GetButtonDown("Fire1") && controller.collisions.below)
             {
                 //GetComponent<Animator>().Play("Jump");
                 velocity.y = jumpVelocity;
@@ -74,6 +77,11 @@ public class Player : MonoBehaviour
         this.isTurn = turn;
     }
 
+    public void setFace(int face)
+    {
+        this.face = face;
+    }
+
     public bool getInGame()
     {
         return inGame;
@@ -82,5 +90,10 @@ public class Player : MonoBehaviour
     public bool getTurn()
     {
         return isTurn;
+    }
+
+    public int getFace()
+    {
+        return face;
     }
 }
