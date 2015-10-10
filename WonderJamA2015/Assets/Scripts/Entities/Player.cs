@@ -44,7 +44,8 @@ public class Player : MonoBehaviour
             }
             if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
             {
-                Debug.Log("ALLO");
+                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
+                turnManager.EndGame(this);
             }
         }
 
