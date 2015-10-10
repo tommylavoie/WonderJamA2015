@@ -23,8 +23,7 @@ public class Aim : MonoBehaviour
             transform.localPosition = new Vector3(x,y);
         else
             transform.localPosition = new Vector3(-x, y);
-        Debug.Log(y);
-	}
+    }
 
     void ManageInput()
     {
