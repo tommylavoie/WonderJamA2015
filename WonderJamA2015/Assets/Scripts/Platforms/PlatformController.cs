@@ -7,10 +7,17 @@ public class PlatformController : RaycastController
 
     public LayerMask passengerMask;
     public Vector3 move;
+    public Vector2 movementStartSelect;
+    public float totalLoopTime;
+    public float moveSpeed;
+
+    private Vector3 velocity;
+    private float time;
 
     public override void Start()
     {
         base.Start();
+        time = 0.0f;
     }
 
     void Update()
@@ -18,11 +25,27 @@ public class PlatformController : RaycastController
 
         UpdateRaycastOrigins();
 
-        Vector3 velocity = move * Time.deltaTime;
+        velocity = move * Time.deltaTime;
+
+        time += Time.deltaTime;
+
+        if (time <= totalLoopTime / 2)
+        {
+            velocity.x = moveSpeed * movementStartSelect.x * Time.deltaTime;
+            velocity.y = moveSpeed * movementStartSelect.y * Time.deltaTime;
+        }
+        else
+        {
+            velocity.x = -moveSpeed * movementStartSelect.x * Time.deltaTime;
+            velocity.y = -moveSpeed * movementStartSelect.y * Time.deltaTime;
+            if (time >= totalLoopTime)
+            {
+                time = 0.0f;
+            }
+        } 
 
         MovePassengers(velocity);
         transform.Translate(velocity);
-
     }
 
     void MovePassengers(Vector3 velocity)
