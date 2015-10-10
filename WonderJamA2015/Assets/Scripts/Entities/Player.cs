@@ -32,10 +32,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-            if (controller.collisions.above || controller.collisions.below)
-            {
-                velocity.y = 0;
-            }
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
 
         Vector2 input = new Vector2(0, 0);
         if (isTurn && inGame)
@@ -49,9 +49,9 @@ public class Player : MonoBehaviour
         }
 
         float targetVelocityX = input.x * moveSpeed;
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-            velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     public void setInGame(bool inGame)
