@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
             {
                 obstacle.gameObject.layer = LayerMask.NameToLayer("Obstacle");
             }
+            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
+            {
+                Debug.Log("ALLO");
+            }
         }
 
         if(controller.collisions.above)
@@ -50,6 +54,10 @@ public class Player : MonoBehaviour
             if (obstacle.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
                 obstacle.gameObject.layer = LayerMask.NameToLayer("ObstacleThrough");
+            }
+            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
+            {
+                Debug.Log("ALLO");
             }
         }
 
