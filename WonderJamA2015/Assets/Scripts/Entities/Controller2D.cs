@@ -100,8 +100,18 @@ public class Controller2D : RaycastController
             Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
+            RaycastHit2D antiHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, antiCollisionMask);
 
             Debug.DrawRay(rayOrigin, (Vector2.up * directionY * rayLength), Color.red);
+
+            if(antiHit)
+            {
+                if (directionY == -1)
+                {
+                    collisions.below = true;
+                    collisions.transformHitBelow = antiHit.transform;
+                }
+            }
 
             if (hit)
             {
@@ -113,9 +123,26 @@ public class Controller2D : RaycastController
                     velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
                 }
 
-                collisions.below = directionY == -1;
-                collisions.above = directionY == 1;
-                collisions.hit = hit.collider;
+                if (directionY == -1)
+                {
+                    collisions.below = true;
+                    collisions.transformHitBelow = hit.transform;
+                }
+                else
+                {
+                    collisions.below = false;
+                }
+
+                if(directionY == 1)
+                {
+                    collisions.above = true;
+                    collisions.transformHitAbove = hit.transform;
+                }
+                else
+                {
+                    collisions.above = false;
+                }
+                
             }
         }
 
@@ -193,7 +220,8 @@ public class Controller2D : RaycastController
         public bool descendingSlope;
         public float slopeAngle, slopeAngleOld;
         public Vector3 velocityOld;
-        public Collider2D hit;
+        public Transform transformHitAbove;
+        public Transform transformHitBelow;
 
         public void Reset()
         {
