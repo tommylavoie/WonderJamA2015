@@ -8,6 +8,11 @@ public class Menu : MonoBehaviour
     int actualCursor = 0;
     int step = 0;
     bool changingCharacter = false;
+
+    int playerSelection = 0;
+    string player1choice = "";
+    string player2choice = "";
+
     // Use this for initialization
     void Start ()
     {
@@ -77,5 +82,28 @@ public class Menu : MonoBehaviour
     {
         GameObject fleche = GameObject.FindGameObjectWithTag("Player");
         fleche.transform.position = new Vector3(faces[actualCursor].transform.position.x, faces[actualCursor].transform.position.y + 3);
+    }
+
+    void chooseCharacter()
+    {
+        string choice = getCharacter(actualCursor);
+        if(playerSelection == 0)
+        {
+
+        }
+    }
+
+    string getCharacter(int position)
+    {
+        string character = "";
+        switch (position)
+        {
+            case 0: character = "Duceppe"; break;
+            case 1: character = "Harper"; break;
+            case 2: character = "May"; break;
+            case 3: character = "Muclair"; break;
+            case 4: character = "Trudeau"; break;
+        }
+        return character;
     }
 }
