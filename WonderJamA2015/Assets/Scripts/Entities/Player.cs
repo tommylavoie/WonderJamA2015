@@ -67,6 +67,15 @@ public class Player : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            Debug.Log("hit with obstacle");
+        }
+    }
+
+
     public void setInGame(bool inGame)
     {
         this.inGame = inGame;
