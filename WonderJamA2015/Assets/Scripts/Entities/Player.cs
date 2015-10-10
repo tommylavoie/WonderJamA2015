@@ -45,10 +45,7 @@ public class Player : MonoBehaviour
         }
 
         if(controller.collisions.above)
-        {
-            /*Collider2D playerCollider = gameObject.GetComponent<Collider2D>();
-            Physics2D.IgnoreCollision(controller.collisions.hit, playerCollider);*/
-           
+        {      
             Collider2D obstacle = controller.collisions.transformHitAbove.GetComponent<Collider2D>();   
             if (obstacle.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
@@ -84,15 +81,6 @@ public class Player : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
-
-    /*void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("hit");
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-        {
-            Debug.Log("hit with obstacle");
-        }
-    }*/
 
     public void setInGame(bool inGame)
     {

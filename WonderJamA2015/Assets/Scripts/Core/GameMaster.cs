@@ -42,7 +42,7 @@ public class GameMaster : MonoBehaviour
         {
             platformSelect = Random.Range(0, Obstacles.Count-3);
             Vector3 position = new Vector3(Random.Range(-16.0F+(i*6), -11.0F+(i*6)), 0.6F, 0);
-            Transform Obstacle = (Transform)Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
+            Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
         }
 
         //Second Part of the level
@@ -51,7 +51,7 @@ public class GameMaster : MonoBehaviour
         {
             platformSelect = Random.Range(0, Obstacles.Count-4);
             Vector3 position = new Vector3(Random.Range(-16.0F + (i * 6), -11.0F + (i * 6)), 4.0F, 0);
-            Transform Obstacle = (Transform)Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
+            Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
         }
 
         //Third Part of the level
@@ -60,7 +60,7 @@ public class GameMaster : MonoBehaviour
         {
             platformSelect = Random.Range(0, Obstacles.Count);
             Vector3 position = new Vector3(Random.Range(-16.0F + (i * 6), -11.0F + (i * 6)), 9.0F, 0);
-            Transform Obstacle = (Transform)Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
+            Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
         }
 
         //Fourth Part of the level
@@ -69,7 +69,7 @@ public class GameMaster : MonoBehaviour
         {
             platformSelect = Random.Range(0, Obstacles.Count);
             Vector3 position = new Vector3(Random.Range(-16.0F + (i * 6), -11.0F + (i * 6)), 14.0F, 0);
-            Transform Obstacle = (Transform)Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
+            Instantiate(Obstacles[platformSelect], position, Quaternion.identity);
         }
     }
 
