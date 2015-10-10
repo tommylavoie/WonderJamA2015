@@ -30,7 +30,7 @@ public class TurnManager : MonoBehaviour
             }
         }
         CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
-        Player end = GameObject.FindGameObjectWithTag("Finish").GetComponent<Player>();
+        EndGoal end = GameObject.FindGameObjectWithTag("Goal").GetComponent<EndGoal>();
         cam.DirectGoTo(new Vector3(end.transform.position.x, playerManager.players[0].transform.position.y, -10));
         Invoke("startGame", 4);
     }
@@ -47,8 +47,8 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
-            Player end = GameObject.FindGameObjectWithTag("Finish").GetComponent<Player>();
-            FollowCameraToPlayer(end, 2f);
+            EndGoal end = GameObject.FindGameObjectWithTag("Goal").GetComponent<EndGoal>();
+            FollowCameraToGoal(end, 2f);
         }
 	}
 
@@ -79,6 +79,12 @@ public class TurnManager : MonoBehaviour
     {
         CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
         cam.SeekCameraToPlayer(player, speed);
+    }
+
+    void FollowCameraToGoal(EndGoal player, float speed)
+    {
+        CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
+        cam.SeekCameraToGoal(player, speed);
     }
 
     public void EndTurn()
