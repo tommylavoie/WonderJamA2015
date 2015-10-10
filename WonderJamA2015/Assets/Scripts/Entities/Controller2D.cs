@@ -101,7 +101,7 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
+            Debug.DrawRay(rayOrigin, (Vector2.up * directionY * rayLength), Color.red);
 
             if (hit)
             {
@@ -115,6 +115,7 @@ public class Controller2D : RaycastController
 
                 collisions.below = directionY == -1;
                 collisions.above = directionY == 1;
+                collisions.hit = hit.collider;
             }
         }
 
@@ -192,6 +193,7 @@ public class Controller2D : RaycastController
         public bool descendingSlope;
         public float slopeAngle, slopeAngleOld;
         public Vector3 velocityOld;
+        public Collider2D hit;
 
         public void Reset()
         {
