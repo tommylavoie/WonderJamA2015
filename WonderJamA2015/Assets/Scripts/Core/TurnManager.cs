@@ -159,7 +159,11 @@ public class TurnManager : MonoBehaviour
                 player.setTurn(false);
             }
             audioManager.PlaySound(winner.Victoire);
-            winner.GetComponent<Animator>().SetBool("Idle2Walk2", true);
+            winner.GetComponent<Animator>().SetBool("Idle2Walk", false);
+            winner.GetComponent<Animator>().SetBool("Idle2Walk2", false);
+            winner.GetComponent<Animator>().SetBool("Idle2Throw", false);
+            winner.GetComponent<Animator>().SetBool("WalkToThrow", false);
+            winner.GetComponent<Animator>().SetTrigger("Win");
         }
     }
 }
