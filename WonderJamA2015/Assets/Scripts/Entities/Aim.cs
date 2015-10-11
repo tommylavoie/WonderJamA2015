@@ -29,7 +29,7 @@ public class Aim : MonoBehaviour
     void ManageInput()
     {
         float aimAxis = Input.GetAxis("RightV");
-        if (owner.getTurnNumber() == 1)
+        if (owner.getTurnNumber() == 1 && !owner.getO())
         {
             aimAxis = Input.GetAxis("RightVB");
         }

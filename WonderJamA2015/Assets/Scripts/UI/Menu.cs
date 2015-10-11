@@ -13,6 +13,8 @@ public class Menu : MonoBehaviour
     int player1choice = -1;
     int player2choice = -1;
 
+    public bool OneJoystick;
+
     // Use this for initialization
     void Start ()
     {
@@ -49,7 +51,7 @@ public class Menu : MonoBehaviour
         {
             float horizontal = Input.GetAxis("Horizontal");
             bool fire = Input.GetButtonDown("Fire1");
-            if (playerSelection == 1)
+            if (playerSelection == 1 && !OneJoystick)
             {
                 horizontal = Input.GetAxis("HorizontalB");
                 fire = Input.GetButtonDown("Fire1B");

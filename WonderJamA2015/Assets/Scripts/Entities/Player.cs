@@ -28,8 +28,11 @@ public class Player : MonoBehaviour
     public AudioClip Attack;
     public AudioClip Victoire;
 
+    bool OneJoystick;
+
     void Start()
     {
+        OneJoystick = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>().OneJoystick;
         controller = GetComponent<Controller2D>();
 
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
@@ -104,7 +107,7 @@ public class Player : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         bool jump = Input.GetButtonDown("Fire1");
         bool shoot = Input.GetButton("Fire2");
-        if (turnNumber == 1)
+        if (turnNumber == 1 && !OneJoystick)
         {
             horizontal = Input.GetAxis("HorizontalB");
             vertical = Input.GetAxis("VerticalB");
@@ -212,6 +215,11 @@ public class Player : MonoBehaviour
     public int getTurnNumber()
     {
         return turnNumber;
+    }
+
+    public bool getO()
+    {
+        return OneJoystick;
     }
 
     void Shoot()

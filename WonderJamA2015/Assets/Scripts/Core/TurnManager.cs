@@ -17,8 +17,10 @@ public class TurnManager : MonoBehaviour
 
     bool started = false;
 
-	// Use this for initialization
-	void Start ()
+    public bool OneJoystick;
+
+    // Use this for initialization
+    void Start ()
     {
         audioManager = GameObject.FindGameObjectWithTag("World").GetComponent<AudioManager>();
         playerManager = GetComponent<PlayerManager>();
