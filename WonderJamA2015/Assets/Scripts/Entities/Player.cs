@@ -208,7 +208,11 @@ public class Player : MonoBehaviour
         if(!hasShot)
         {
             hasShot = true;
-            
+            Aim aim = GetComponentInChildren<Aim>();
+            AmmoInventory inventory = GameObject.FindGameObjectWithTag("World").GetComponent<AmmoInventory>();
+            Ammo ammo = inventory.CreateAmmo(aim);
+            Vector2 force = new Vector3(aim.getX(), aim.getY());
+            ammo.GetComponent<Rigidbody2D>().AddForce(force);
         }
     }
 }
