@@ -68,7 +68,7 @@ public class BlocManager : MonoBehaviour
                                 }
                                 else
                                 {
-                                    platformSelect = RNG(12, 21);
+                                    platformSelect = RNG(12, Obstacles.Count);
                                 }
                             }
                         }
