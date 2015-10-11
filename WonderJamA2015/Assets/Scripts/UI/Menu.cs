@@ -16,16 +16,17 @@ public class Menu : MonoBehaviour
     int player2choice = -1;
     int[] playerChoices;
 
-    Text[] step1Texts;
-    Text[] step2Texts;
+    Image[] step1Texts;
+    Image[] step2Texts;
 
+    public List<GameObject> PEmblem;
     public bool OneJoystick;
 
     // Use this for initialization
     void Start ()
     {
-        step1Texts = new Text[] { FindTextWithName("Jouer"), FindTextWithName("Quitter") };
-        step2Texts = new Text[] { FindTextWithName("2Joueurs"), FindTextWithName("3Joueurs"), FindTextWithName("4Joueurs") };
+        step1Texts = new Image[] { FindImageWithName("Jouer"), FindImageWithName("Quitter") };
+        step2Texts = new Image[] { FindImageWithName("2Joueurs"), FindImageWithName("3Joueurs"), FindImageWithName("4Joueurs") };
     }
 	
 	// Update is called once per frame
@@ -34,13 +35,13 @@ public class Menu : MonoBehaviour
         ManageInput();
     }
 
-    Text FindTextWithName(string name)
+    Image FindImageWithName(string name)
     {
         GameObject[] texts = GameObject.FindGameObjectsWithTag("MenuText");
-        foreach(GameObject textObject in texts)
+        foreach (GameObject textObject in texts)
         {
             if (textObject.GetComponent<MenuText>().Name.Equals(name))
-                return textObject.GetComponent<Text>();
+                return textObject.GetComponent<Image>();
         }
         return null;
     }
@@ -70,14 +71,14 @@ public class Menu : MonoBehaviour
             if (step == 0)
             {
 
-                Text startText = FindTextWithName("StartPress");
-                Text jouerText = FindTextWithName("Jouer");
-                Text quitterText = FindTextWithName("Quitter");
+                Image startText = FindImageWithName("StartPress");
+                Image jouerText = FindImageWithName("Jouer");
+                Image quitterText = FindImageWithName("Quitter");
 
                 jouerText.enabled = true;
                 quitterText.enabled = true;
                 startText.enabled = false;
-                overText(jouerText.gameObject);
+                overImage(jouerText.gameObject);
                 step = 1;
             }
         }
@@ -87,24 +88,24 @@ public class Menu : MonoBehaviour
     {
         if (step == 1)
         {
-            if (vertical > 0 && !changing)
+            if (vertical < 0 && !changing)
             {
                 changing = true;
-                unoverText(step1Texts[actualCursor].gameObject);
+                unoverImage(step1Texts[actualCursor].gameObject);
                 actualCursor++;
                 if (actualCursor >= 2)
                     actualCursor = 0;
-                overText(step1Texts[actualCursor].gameObject);
+                overImage(step1Texts[actualCursor].gameObject);
 
             }
-            else if (vertical < 0 && !changing)
+            else if (vertical > 0 && !changing)
             {
                 changing = true;
-                unoverText(step1Texts[actualCursor].gameObject);
+                unoverImage(step1Texts[actualCursor].gameObject);
                 actualCursor--;
                 if (actualCursor < 0)
                     actualCursor = 1;
-                overText(step1Texts[actualCursor].gameObject);
+                overImage(step1Texts[actualCursor].gameObject);
             }
             else if (vertical == 0 && changing)
             {
@@ -119,18 +120,18 @@ public class Menu : MonoBehaviour
                 else
                 {
                     actualCursor = 0;
-                    Text jouerText = FindTextWithName("Jouer");
-                    Text quitterText = FindTextWithName("Quitter");
-                    Text joueurs2Text = FindTextWithName("2Joueurs");
-                    Text joueurs3Text = FindTextWithName("3Joueurs");
-                    Text joueurs4Text = FindTextWithName("4Joueurs");
+                    Image jouerText = FindImageWithName("Jouer");
+                    Image quitterText = FindImageWithName("Quitter");
+                    Image joueurs2Text = FindImageWithName("2Joueurs");
+                    Image joueurs3Text = FindImageWithName("3Joueurs");
+                    Image joueurs4Text = FindImageWithName("4Joueurs");
 
                     jouerText.enabled = false;
                     quitterText.enabled = false;
                     joueurs2Text.enabled = true;
                     joueurs3Text.enabled = true;
                     joueurs4Text.enabled = true;
-                    overText(joueurs2Text.gameObject);
+                    overImage(joueurs2Text.gameObject);
                     step++;
                 }
             }
@@ -146,21 +147,21 @@ public class Menu : MonoBehaviour
             if (vertical < 0 && !changing)
             {
                 changing = true;
-                unoverText(step2Texts[actualCursor].gameObject);
+                unoverImage(step2Texts[actualCursor].gameObject);
                 actualCursor++;
                 if (actualCursor >= 3)
                     actualCursor = 0;
-                overText(step2Texts[actualCursor].gameObject);
+                overImage(step2Texts[actualCursor].gameObject);
 
             }
             else if (vertical > 0 && !changing)
             {
                 changing = true;
-                unoverText(step2Texts[actualCursor].gameObject);
+                unoverImage(step2Texts[actualCursor].gameObject);
                 actualCursor--;
                 if (actualCursor < 0)
                     actualCursor = 2;
-                overText(step2Texts[actualCursor].gameObject);
+                overImage(step2Texts[actualCursor].gameObject);
             }
             else if (vertical == 0 && changing)
             {
@@ -193,10 +194,10 @@ public class Menu : MonoBehaviour
                     for (int i = 0; i < 4; i++)
                         playerChoices[i] = -1;
                     actualCursor = 0;
-                    Text choiceText = FindTextWithName("Choisir");
-                    Text joueurs2Text = FindTextWithName("2Joueurs");
-                    Text joueurs3Text = FindTextWithName("3Joueurs");
-                    Text joueurs4Text = FindTextWithName("4Joueurs");
+                    Image choiceText = FindImageWithName("Choisir");
+                    Image joueurs2Text = FindImageWithName("2Joueurs");
+                    Image joueurs3Text = FindImageWithName("3Joueurs");
+                    Image joueurs4Text = FindImageWithName("4Joueurs");
                     joueurs2Text.enabled = false;
                     joueurs3Text.enabled = false;
                     joueurs4Text.enabled = false;
@@ -286,20 +287,20 @@ public class Menu : MonoBehaviour
     void moveCursor()
     {
         GameObject fleche = GameObject.FindGameObjectWithTag("Player");
-        fleche.transform.position = new Vector3(faces[actualCursor].transform.position.x, faces[actualCursor].transform.position.y + 3);
+        fleche.transform.position = new Vector3(faces[actualCursor].transform.position.x, faces[0].transform.position.y + 2.5f);
         faces[actualCursor].GetComponent<MenuFace>().Select();
     }
 
-    void overText(GameObject obj)
+    void overImage(GameObject obj)
     {
-        Text text = obj.GetComponent<Text>();
-        text.color = new Color(text.color.r, text.color.g, text.color.b, .5f);
+        Image text = obj.GetComponent<Image>();
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
     }
 
-    void unoverText(GameObject obj)
+    void unoverImage(GameObject obj)
     {
-        Text text = obj.GetComponent<Text>();
-        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
+        Image text = obj.GetComponent<Image>();
+        text.color = new Color(text.color.r, text.color.g, text.color.b, .5f);
     }
 
     void chooseCharacter()
@@ -312,12 +313,21 @@ public class Menu : MonoBehaviour
         SpriteRenderer renderer = faces[actualCursor].GetComponent<SpriteRenderer>();
         renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, .5f);
         playerChoices[playerSelection] = actualCursor;
+        placeEmblem(playerSelection);
         nextPlayer();
         if(playerSelection >= numberOfPlayers)
         {
+            SpriteRenderer fleche = (SpriteRenderer)GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
+            fleche.enabled = false;
+            faces[actualCursor].GetComponent<MenuFace>().Unselect();
             step++;
             Invoke("startGame", 2) ;
         }
+    }
+
+    void placeEmblem(int player)
+    {
+        PEmblem[player].transform.position = new Vector2(faces[actualCursor].transform.position.x, faces[0].transform.position.y + 2.5f);
     }
 
     string getCharacter(int position)
