@@ -52,23 +52,23 @@ public class BlocManager : MonoBehaviour
                     {
                         if (i <=9)
                         {
-                            platformSelect = RNG(0, 3);
+                            platformSelect = RNG(0, 6);
                         }
                         else
                         {
                             if ( i <=32)
                             {
-                                platformSelect = RNG(4, 8);
+                                platformSelect = RNG(7, 11);
                             }
                             else
                             {
                                 if( i <=42)
                                 {
-                                    platformSelect = RNG(9, 14);
+                                    platformSelect = RNG(12, 20);
                                 }
                                 else
                                 {
-                                    platformSelect = RNG(9, 15);
+                                    platformSelect = RNG(12, 21);
                                 }
                             }
                         }
