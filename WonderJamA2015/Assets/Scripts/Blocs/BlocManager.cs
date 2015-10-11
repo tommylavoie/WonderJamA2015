@@ -46,7 +46,25 @@ public class BlocManager : MonoBehaviour
                     if (i == 0)
                         platformSelect = 0;
                     else
-                        platformSelect = RNG(0, Obstacles.Count);
+                    {
+                        if (i <=10)
+                        {
+                            platformSelect = RNG(0, 3);
+                        }
+                        else
+                        {
+                             if ( i <=20)
+                            {
+                                platformSelect = RNG(4, 8);
+                            }
+                             else
+                             {
+                                 platformSelect = RNG(9, 15);
+                             }
+                        }
+                       
+
+                    }
                     bool available = false;
                     int column = 0;
                     while (!available)
@@ -99,6 +117,12 @@ public class BlocManager : MonoBehaviour
                 {
                     float x = j * oneColumn + limitXStart + (oneColumn / 2);
                     Vector3 position = new Vector3(x, y);
+
+                    //Si l'obstacle est un oiseau
+                    if (Obstacles[map[i, j]].CompareTag("leftMovementBird"))
+                    {
+                        position.x += Random.Range(10.0F, 35.0F);
+                    }
                     Instantiate(Obstacles[map[i,j]], position, Quaternion.identity);
                 }
             }
