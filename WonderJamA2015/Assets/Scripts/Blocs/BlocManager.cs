@@ -58,17 +58,17 @@ public class BlocManager : MonoBehaviour
                         {
                             if ( i <=32)
                             {
-                                platformSelect = RNG(7, 11);
+                                platformSelect = RNG(7, 12);
                             }
                             else
                             {
                                 if( i <=42)
                                 {
-                                    platformSelect = RNG(12, 20);
+                                    platformSelect = RNG(13, 21);
                                 }
                                 else
                                 {
-                                    platformSelect = RNG(12, Obstacles.Count);
+                                    platformSelect = RNG(13, Obstacles.Count);
                                 }
                             }
                         }
