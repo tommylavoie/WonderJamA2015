@@ -129,6 +129,7 @@ public class TurnManager : MonoBehaviour
                 player.setTurn(false);
             }
             audioManager.PlaySound(winner.Victoire);
+            winner.GetComponent<Animator>().SetTrigger("Win");
         }
     }
 }
