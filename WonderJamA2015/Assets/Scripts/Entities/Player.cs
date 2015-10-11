@@ -28,6 +28,11 @@ public class Player : MonoBehaviour
     public AudioClip Attack;
     public AudioClip Victoire;
 
+    public AudioClip hitSound0;
+    public AudioClip hitSound1;
+    public AudioClip hitSound2;
+    public AudioClip hitSound3;
+
     bool OneJoystick;
 
     void Start()
@@ -216,10 +221,27 @@ public class Player : MonoBehaviour
         if(col.gameObject.tag.Equals("Ammo"))
         {
             Ammo ammo = col.gameObject.GetComponent<Ammo>();
+
             if(!ammo.isTouched())
             {
                 ammo.Touch();
+<<<<<<< HEAD
+
+                AudioManager audioManager = GameObject.FindGameObjectWithTag("World").GetComponent<AudioManager>();
+
+                int sound = Random.Range(0, 3);
+                switch (sound)
+                {
+                    case 0: audioManager.PlaySound(hitSound0); break;
+                    case 1: audioManager.PlaySound(hitSound1); break;
+                    case 2: audioManager.PlaySound(hitSound2); break;
+                    case 3: audioManager.PlaySound(hitSound3); break;
+                }
+
+                float targetVelocityX = 100f * ammo.getDirection();
+=======
                 float targetVelocityX = 150f * ammo.getDirection();
+>>>>>>> origin/master
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
                 velocity.y += gravity * Time.deltaTime;
                 controller.Move(velocity * Time.deltaTime);

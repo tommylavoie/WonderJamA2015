@@ -5,6 +5,7 @@ public class Ammo : MonoBehaviour
 {
     bool touched = false;
     int direction = 1;
+
 	// Use this for initialization
 	void Start ()
     {
