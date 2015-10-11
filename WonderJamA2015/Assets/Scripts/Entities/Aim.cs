@@ -20,6 +20,11 @@ public class Aim : MonoBehaviour
     {
         ManageInput();
         float x = Mathf.Sqrt(Mathf.Pow(RAYON, 2) - Mathf.Pow(y, 2));
+
+        Vector3 dir = owner.transform.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         if(owner.getFace() > 0)
             transform.localPosition = new Vector3(x + ERROR_MARGIN,y);
         else
