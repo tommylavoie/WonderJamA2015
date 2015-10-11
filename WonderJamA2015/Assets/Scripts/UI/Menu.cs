@@ -71,7 +71,8 @@ public class Menu : MonoBehaviour
 
     void nextCharacter()
     {
-        if(actualCursor < faces.Count-1)
+        faces[actualCursor].GetComponent<MenuFace>().Unselect();
+        if (actualCursor < faces.Count-1)
             actualCursor++;
         if (actualCursor == player1choice)
             actualCursor++;
@@ -82,6 +83,7 @@ public class Menu : MonoBehaviour
 
     void precCharacter()
     {
+        faces[actualCursor].GetComponent<MenuFace>().Unselect();
         if (actualCursor > 0)
             actualCursor--;
         if (actualCursor == player1choice)
@@ -95,10 +97,16 @@ public class Menu : MonoBehaviour
     {
         GameObject fleche = GameObject.FindGameObjectWithTag("Player");
         fleche.transform.position = new Vector3(faces[actualCursor].transform.position.x, faces[actualCursor].transform.position.y + 3);
+        faces[actualCursor].GetComponent<MenuFace>().Select();
     }
 
     void chooseCharacter()
     {
+        faces[actualCursor].GetComponent<MenuFace>().Unselect();
+        AudioSource audiosource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        audiosource.clip = faces[actualCursor].GetComponent<MenuFace>().citation;
+        audiosource.loop = false;
+        audiosource.Play();
         SpriteRenderer renderer = faces[actualCursor].GetComponent<SpriteRenderer>();
         renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, .5f);
         if(playerSelection == 0)
@@ -109,7 +117,9 @@ public class Menu : MonoBehaviour
         else if(playerSelection == 1)
         {
             player2choice = actualCursor;
-            startGame();
+            playerSelection++;
+            step = 2;
+            Invoke("startGame", 2) ;
         }
     }
 

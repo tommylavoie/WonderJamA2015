@@ -42,7 +42,11 @@ public class BlocManager : MonoBehaviour
                 }
                 for (int j = 0; j < ObstaclesPerLine; j++)
                 {
-                    int platformSelect = RNG(0, Obstacles.Count);
+                    int platformSelect;
+                    if (i == 0)
+                        platformSelect = 0;
+                    else
+                        platformSelect = RNG(0, Obstacles.Count);
                     bool available = false;
                     int column = 0;
                     while (!available)
