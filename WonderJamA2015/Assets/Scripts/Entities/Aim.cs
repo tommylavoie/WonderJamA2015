@@ -28,13 +28,17 @@ public class Aim : MonoBehaviour
 
     void ManageInput()
     {
-        float input = Input.GetAxis("RightV");
-        if (input != 0)
+        float aimAxis = Input.GetAxis("RightV");
+        if (owner.getTurnNumber() == 1)
+        {
+            aimAxis = Input.GetAxis("RightVB");
+        }
+        if (aimAxis != 0)
         {
             if(y <= RAYON)
-                y -= input * SENSIBILITY;
+                y -= aimAxis * SENSIBILITY;
             else if(y >= -RAYON)
-                y += input * SENSIBILITY;
+                y += aimAxis * SENSIBILITY;
             if (y > RAYON)
                 y = RAYON;
             else if (y < -RAYON)

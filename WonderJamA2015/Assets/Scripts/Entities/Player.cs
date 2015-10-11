@@ -100,33 +100,44 @@ public class Player : MonoBehaviour
             }
         }
 
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        bool jump = Input.GetButtonDown("Fire1");
+        bool shoot = Input.GetButton("Fire2");
+        if (turnNumber == 1)
+        {
+            horizontal = Input.GetAxis("HorizontalB");
+            vertical = Input.GetAxis("VerticalB");
+            jump = Input.GetButtonDown("Fire1B");
+            shoot = Input.GetButton("Fire2B");
+        }
         Vector2 input = new Vector2(0, 0);
         if (isTurn && inGame)
         {
-            input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            input = new Vector2(horizontal, vertical);
 
-            if (Input.GetAxisRaw("Horizontal") > 0)
+            if (horizontal > 0)
             {
                 GetComponent<Animator>().SetBool("Idle2Walk", true);
                 setFace(1);
             }
-            if (Input.GetAxisRaw("Horizontal") < 0)
+            if (horizontal < 0)
             {
                 GetComponent<Animator>().SetBool("Idle2Walk2", true);
                 setFace(-1);
             }
-            if (Input.GetAxisRaw("Horizontal") == 0)
+            if (horizontal == 0)
             {
                 GetComponent<Animator>().SetBool("Idle2Walk", false);
                 GetComponent<Animator>().SetBool("Idle2Walk2", false);
             }
 
-            if (Input.GetButtonDown("Fire1") && controller.collisions.below)
+            if (jump && controller.collisions.below)
             {
                 velocity.y = jumpVelocity;
             }
 
-            if (Input.GetButton("Fire2"))
+            if (shoot)
             {
                 Shoot();
                 GetComponent<Animator>().SetBool("Idle2Throw", true);
@@ -205,8 +216,8 @@ public class Player : MonoBehaviour
 
     void Shoot()
     {
-        if(!hasShot)
-        {
+        //if(!hasShot)
+        //{
             hasShot = true;
             Aim aim = GetComponentInChildren<Aim>();
             AmmoInventory inventory = GameObject.FindGameObjectWithTag("World").GetComponent<AmmoInventory>();
@@ -214,7 +225,9 @@ public class Player : MonoBehaviour
             ammo.setDirection(getFace());
             Vector2 force = new Vector3(aim.getX()*getFace(), aim.getY());
             ammo.GetComponent<Rigidbody2D>().AddForce(force*500);
-        }
+            AudioManager audioManager = GameObject.FindGameObjectWithTag("World").GetComponent<AudioManager>();
+            audioManager.PlaySound(Attack);
+        //}
     }
 
     void OnCollisionEnter2D(Collision2D col)
