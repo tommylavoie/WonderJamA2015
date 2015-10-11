@@ -137,7 +137,7 @@ public class TurnManager : MonoBehaviour
             WinnerText[1].GetComponent<Image>().enabled = true;
         if (winner.name.Equals("May"))
             WinnerText[2].GetComponent<Image>().enabled = true;
-        if (winner.name.Equals("Mulcair"))
+        if (winner.name.Equals("Muclair"))
             WinnerText[3].GetComponent<Image>().enabled = true;
         if (winner.name.Equals("Trudeau"))
             WinnerText[4].GetComponent<Image>().enabled = true;
