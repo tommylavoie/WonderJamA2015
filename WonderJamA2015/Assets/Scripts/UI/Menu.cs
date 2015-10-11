@@ -189,8 +189,8 @@ public class Menu : MonoBehaviour
                 if(chose)
                 {
                     chose = false;
-                    playerChoices = new int[numberOfPlayers];
-                    for (int i = 0; i < playerChoices.Length; i++)
+                    playerChoices = new int[4];
+                    for (int i = 0; i < 4; i++)
                         playerChoices[i] = -1;
                     actualCursor = 0;
                     Text choiceText = FindTextWithName("Choisir");
@@ -322,7 +322,7 @@ public class Menu : MonoBehaviour
 
     string getCharacter(int position)
     {
-        string character = "";
+        string character = "None";
         switch (position)
         {
             case 0: character = "Duceppe"; break;
@@ -356,10 +356,15 @@ public class Menu : MonoBehaviour
 
     void startGame()
     {
-        string player1 = getCharacter(player1choice);
-        string player2 = getCharacter(player2choice);
+        string player1 = getCharacter(playerChoices[0]);
+        string player2 = getCharacter(playerChoices[1]);
+        string player3 = getCharacter(playerChoices[2]);
+        string player4 = getCharacter(playerChoices[3]);
         PlayerPrefs.SetString("Player1", player1);
         PlayerPrefs.SetString("Player2", player2);
+        PlayerPrefs.SetString("Player3", player3);
+        PlayerPrefs.SetString("Player4", player4);
+
         Application.LoadLevel("MainScene");
     }
 }
