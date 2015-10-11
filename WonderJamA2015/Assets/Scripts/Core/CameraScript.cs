@@ -26,7 +26,7 @@ public class CameraScript : MonoBehaviour
     {
         float x = obj.transform.position.x;
         float y = obj.transform.position.y;
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(x, y, -10), ref velocity, speed);
+        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(x, y - 32.27f, -10), ref velocity, speed);
     }
 
     public void DirectGoTo(Vector3 position)

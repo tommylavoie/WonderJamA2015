@@ -118,7 +118,6 @@ public class Player : MonoBehaviour
             {
                 GetComponent<Animator>().SetBool("Idle2Walk", false);
                 GetComponent<Animator>().SetBool("Idle2Walk2", false);
-                setFace(1);
             }
 
             if (Input.GetButtonDown("Fire1") && controller.collisions.below)
@@ -128,6 +127,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetButton("Fire2"))
             {
+                Shoot();
                 GetComponent<Animator>().SetBool("Idle2Throw", true);
                 GetComponent<Animator>().SetBool("WalkToThrow", true);
             }
@@ -199,5 +199,10 @@ public class Player : MonoBehaviour
     public int getTurnNumber()
     {
         return turnNumber;
+    }
+
+    void Shoot()
+    {
+        Debug.Log("GO");
     }
 }
