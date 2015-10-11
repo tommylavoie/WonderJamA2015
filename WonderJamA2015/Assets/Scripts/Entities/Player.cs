@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     bool isTurn = false;
     int face = 1;
     int turnNumber = 0;
+    bool hasShot = false;
 
     public AudioClip Debut;
     public AudioClip Attack;
@@ -118,7 +119,6 @@ public class Player : MonoBehaviour
             {
                 GetComponent<Animator>().SetBool("Idle2Walk", false);
                 GetComponent<Animator>().SetBool("Idle2Walk2", false);
-                setFace(1);
             }
 
             if (Input.GetButtonDown("Fire1") && controller.collisions.below)
@@ -128,6 +128,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetButton("Fire2"))
             {
+                Shoot();
                 GetComponent<Animator>().SetBool("Idle2Throw", true);
                 GetComponent<Animator>().SetBool("WalkToThrow", true);
             }
@@ -157,6 +158,7 @@ public class Player : MonoBehaviour
             GetComponent<Animator>().SetBool("Idle2Walk", false);
             GetComponent<Animator>().SetBool("Idle2Walk2", false);
             fermerAnimationThrow();
+            hasShot = false;
         }
     }
 
@@ -199,5 +201,14 @@ public class Player : MonoBehaviour
     public int getTurnNumber()
     {
         return turnNumber;
+    }
+
+    void Shoot()
+    {
+        if(!hasShot)
+        {
+            hasShot = true;
+            
+        }
     }
 }
