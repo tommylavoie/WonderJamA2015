@@ -57,6 +57,18 @@ public class Menu : MonoBehaviour
             vertical = Input.GetAxis("VerticalB");
             fire = Input.GetButtonDown("Fire1B");
         }
+        if (playerSelection == 2 && !OneJoystick)
+        {
+            horizontal = Input.GetAxis("HorizontalC");
+            vertical = Input.GetAxis("VerticalC");
+            fire = Input.GetButtonDown("Fire1C");
+        }
+        if (playerSelection == 3 && !OneJoystick)
+        {
+            horizontal = Input.GetAxis("HorizontalD");
+            vertical = Input.GetAxis("VerticalD");
+            fire = Input.GetButtonDown("Fire1D");
+        }
 
         ManageStep0(horizontal, vertical, fire);
         ManageStep1(horizontal, vertical, fire);

@@ -17,7 +17,11 @@ public class TurnManager : MonoBehaviour
 
     bool started = false;
 
+    public GameObject EndPlaque;
     public bool OneJoystick;
+
+    public GameObject[] WinnerText;
+    public GameObject remporte;
 
     // Use this for initialization
     void Start ()
@@ -72,6 +76,13 @@ public class TurnManager : MonoBehaviour
                 FollowCameraToGoal(end, 1f);
             }
         }
+        else
+        {
+            if(Input.GetButtonDown("Start"))
+            {
+                Application.LoadLevel("Menu");
+            }
+        }
 	}
 
     void startGame()
@@ -116,19 +127,42 @@ public class TurnManager : MonoBehaviour
             nextTurn();
     }
 
+    void setWinnerText(Player winner)
+    {
+        if (winner.name.Equals("Duceppe"))
+            WinnerText[0].GetComponent<Image>().enabled = true;
+        if (winner.name.Equals("Harper"))
+            WinnerText[1].GetComponent<Image>().enabled = true;
+        if (winner.name.Equals("May"))
+            WinnerText[2].GetComponent<Image>().enabled = true;
+        if (winner.name.Equals("Mulcair"))
+            WinnerText[3].GetComponent<Image>().enabled = true;
+        if (winner.name.Equals("Trudeau"))
+            WinnerText[4].GetComponent<Image>().enabled = true;
+    }
+
     public void EndGame(Player winner)
     {
         if (!isEnding)
         {
             isEnding = true;
+            EndPlaque.GetComponent<BoxCollider2D>().enabled = true;
             Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
-            text.text = winner.name + " remporte les élections!";
+            GameObject goal = GameObject.FindGameObjectWithTag("Goal");
+            goal.SetActive(false);
+            setWinnerText(winner);
+            remporte.GetComponent<Image>().enabled = true;
+            text.text = "";
             foreach(Player player in playerManager.players)
             {
                 player.setInGame(false);
                 player.setTurn(false);
             }
             audioManager.PlaySound(winner.Victoire);
+            winner.GetComponent<Animator>().SetBool("Idle2Walk", false);
+            winner.GetComponent<Animator>().SetBool("Idle2Walk2", false);
+            winner.GetComponent<Animator>().SetBool("Idle2Throw", false);
+            winner.GetComponent<Animator>().SetBool("WalkToThrow", false);
             winner.GetComponent<Animator>().SetTrigger("Win");
         }
     }
