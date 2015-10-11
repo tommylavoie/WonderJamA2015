@@ -4,7 +4,7 @@ using System.Collections;
 public class Aim : MonoBehaviour
 {
     Player owner;
-    public float y = 0;
+    float y = 0;
     public float RAYON = 2;
     public float SENSIBILITY = 0.1f;
 
@@ -39,5 +39,16 @@ public class Aim : MonoBehaviour
             else if (y < -RAYON)
                 y = -RAYON;
         }
+    }
+
+    public float getX()
+    {
+        float x = Mathf.Sqrt(Mathf.Pow(RAYON, 2) - Mathf.Pow(y, 2));
+        return x;
+    }
+
+    public float getY()
+    {
+        return y;
     }
 }

@@ -7,25 +7,26 @@ public class PlatformController : RaycastController
 
     public LayerMask passengerMask;
     public Vector3 move;
+    public bool repeatMovement;
     public Vector2 movementStartSelect;
     public float totalLoopTime;
     public float moveSpeed;
 
     private Vector3 velocity;
     private float time;
+    private Vector3 position;
 
     public override void Start()
     {
         base.Start();
         time = 0.0f;
+        position = transform.position;
     }
 
     void Update()
     {
 
         UpdateRaycastOrigins();
-
-        velocity = move * Time.deltaTime;
 
         time += Time.deltaTime;
 
@@ -41,10 +42,20 @@ public class PlatformController : RaycastController
             if (time >= totalLoopTime)
             {
                 time = 0.0f;
+                if(repeatMovement)
+                {
+                    transform.position = position;
+                }
             }
         } 
 
+        if( move.x != 0 || move.y != 0 || move.z != 0)
+        {
+            velocity = move * Time.deltaTime;
+        }
+
         MovePassengers(velocity);
+
         transform.Translate(velocity);
     }
 
