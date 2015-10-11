@@ -21,6 +21,7 @@ public class TurnManager : MonoBehaviour
     public bool OneJoystick;
 
     public GameObject[] WinnerText;
+    public GameObject remporte;
 
     // Use this for initialization
     void Start ()
@@ -149,7 +150,8 @@ public class TurnManager : MonoBehaviour
             Text text = GameObject.FindGameObjectWithTag("UI").GetComponentInChildren<Text>();
             GameObject goal = GameObject.FindGameObjectWithTag("Goal");
             goal.SetActive(false);
-            //setWinnerText(winner);
+            setWinnerText(winner);
+            remporte.GetComponent<Image>().enabled = true;
             text.text = "";
             foreach(Player player in playerManager.players)
             {
