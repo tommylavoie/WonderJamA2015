@@ -287,7 +287,7 @@ public class Menu : MonoBehaviour
     void moveCursor()
     {
         GameObject fleche = GameObject.FindGameObjectWithTag("Player");
-        fleche.transform.position = new Vector3(faces[actualCursor].transform.position.x, faces[actualCursor].transform.position.y + 3);
+        fleche.transform.position = new Vector3(faces[actualCursor].transform.position.x, faces[0].transform.position.y + 2.5f);
         faces[actualCursor].GetComponent<MenuFace>().Select();
     }
 
