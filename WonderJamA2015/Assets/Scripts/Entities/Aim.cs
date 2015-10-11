@@ -34,17 +34,34 @@ public class Aim : MonoBehaviour
     void ManageInput()
     {
         float aimAxis = Input.GetAxis("RightV");
+        if (Input.GetJoystickNames()[0] == "Controller (XBOX 360 For Windows)")
+        {
+            aimAxis = Input.GetAxis("Vxbox");
+        }
+
         if (owner.getTurnNumber() == 1 && !owner.getO())
         {
             aimAxis = Input.GetAxis("RightVB");
+            if (Input.GetJoystickNames()[1] == "Controller (XBOX 360 For Windows)")
+            {
+                aimAxis = Input.GetAxis("VxboxB");
+            }
         }
         else if (owner.getTurnNumber() == 2 && !owner.getO())
         {
             aimAxis = Input.GetAxis("RightVC");
+            if (Input.GetJoystickNames()[2] == "Controller (XBOX 360 For Windows)")
+            {
+                aimAxis = Input.GetAxis("VxboxC");
+            }
         }
         else if (owner.getTurnNumber() == 3 && !owner.getO())
         {
             aimAxis = Input.GetAxis("RightVD");
+            if (Input.GetJoystickNames()[3] == "Controller (XBOX 360 For Windows)")
+            {
+                aimAxis = Input.GetAxis("VxboxD");
+            }
         }
 
         if (aimAxis != 0)
