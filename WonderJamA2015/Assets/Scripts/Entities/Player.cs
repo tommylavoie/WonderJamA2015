@@ -216,8 +216,8 @@ public class Player : MonoBehaviour
 
     void Shoot()
     {
-        //if(!hasShot)
-        //{
+        if(!hasShot)
+        {
             hasShot = true;
             Aim aim = GetComponentInChildren<Aim>();
             AmmoInventory inventory = GameObject.FindGameObjectWithTag("World").GetComponent<AmmoInventory>();
@@ -227,7 +227,7 @@ public class Player : MonoBehaviour
             ammo.GetComponent<Rigidbody2D>().AddForce(force*500);
             AudioManager audioManager = GameObject.FindGameObjectWithTag("World").GetComponent<AudioManager>();
             audioManager.PlaySound(Attack);
-        //}
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
