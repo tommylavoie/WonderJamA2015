@@ -17,7 +17,7 @@ public class Menu : MonoBehaviour
     int[] playerChoices;
 
     Image[] step1Texts;
-    Text[] step2Texts;
+    Image[] step2Texts;
 
     public List<GameObject> PEmblem;
     public bool OneJoystick;
@@ -26,24 +26,13 @@ public class Menu : MonoBehaviour
     void Start ()
     {
         step1Texts = new Image[] { FindImageWithName("Jouer"), FindImageWithName("Quitter") };
-        step2Texts = new Text[] { FindTextWithName("2Joueurs"), FindTextWithName("3Joueurs"), FindTextWithName("4Joueurs") };
+        step2Texts = new Image[] { FindImageWithName("2Joueurs"), FindImageWithName("3Joueurs"), FindImageWithName("4Joueurs") };
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         ManageInput();
-    }
-
-    Text FindTextWithName(string name)
-    {
-        GameObject[] texts = GameObject.FindGameObjectsWithTag("MenuText");
-        foreach(GameObject textObject in texts)
-        {
-            if (textObject.GetComponent<MenuText>().Name.Equals(name))
-                return textObject.GetComponent<Text>();
-        }
-        return null;
     }
 
     Image FindImageWithName(string name)
@@ -133,16 +122,16 @@ public class Menu : MonoBehaviour
                     actualCursor = 0;
                     Image jouerText = FindImageWithName("Jouer");
                     Image quitterText = FindImageWithName("Quitter");
-                    Text joueurs2Text = FindTextWithName("2Joueurs");
-                    Text joueurs3Text = FindTextWithName("3Joueurs");
-                    Text joueurs4Text = FindTextWithName("4Joueurs");
+                    Image joueurs2Text = FindImageWithName("2Joueurs");
+                    Image joueurs3Text = FindImageWithName("3Joueurs");
+                    Image joueurs4Text = FindImageWithName("4Joueurs");
 
                     jouerText.enabled = false;
                     quitterText.enabled = false;
                     joueurs2Text.enabled = true;
                     joueurs3Text.enabled = true;
                     joueurs4Text.enabled = true;
-                    overText(joueurs2Text.gameObject);
+                    overImage(joueurs2Text.gameObject);
                     step++;
                 }
             }
@@ -158,21 +147,21 @@ public class Menu : MonoBehaviour
             if (vertical < 0 && !changing)
             {
                 changing = true;
-                unoverText(step2Texts[actualCursor].gameObject);
+                unoverImage(step2Texts[actualCursor].gameObject);
                 actualCursor++;
                 if (actualCursor >= 3)
                     actualCursor = 0;
-                overText(step2Texts[actualCursor].gameObject);
+                overImage(step2Texts[actualCursor].gameObject);
 
             }
             else if (vertical > 0 && !changing)
             {
                 changing = true;
-                unoverText(step2Texts[actualCursor].gameObject);
+                unoverImage(step2Texts[actualCursor].gameObject);
                 actualCursor--;
                 if (actualCursor < 0)
                     actualCursor = 2;
-                overText(step2Texts[actualCursor].gameObject);
+                overImage(step2Texts[actualCursor].gameObject);
             }
             else if (vertical == 0 && changing)
             {
@@ -206,9 +195,9 @@ public class Menu : MonoBehaviour
                         playerChoices[i] = -1;
                     actualCursor = 0;
                     Image choiceText = FindImageWithName("Choisir");
-                    Text joueurs2Text = FindTextWithName("2Joueurs");
-                    Text joueurs3Text = FindTextWithName("3Joueurs");
-                    Text joueurs4Text = FindTextWithName("4Joueurs");
+                    Image joueurs2Text = FindImageWithName("2Joueurs");
+                    Image joueurs3Text = FindImageWithName("3Joueurs");
+                    Image joueurs4Text = FindImageWithName("4Joueurs");
                     joueurs2Text.enabled = false;
                     joueurs3Text.enabled = false;
                     joueurs4Text.enabled = false;
@@ -300,18 +289,6 @@ public class Menu : MonoBehaviour
         GameObject fleche = GameObject.FindGameObjectWithTag("Player");
         fleche.transform.position = new Vector3(faces[actualCursor].transform.position.x, faces[actualCursor].transform.position.y + 3);
         faces[actualCursor].GetComponent<MenuFace>().Select();
-    }
-
-    void overText(GameObject obj)
-    {
-        Text text = obj.GetComponent<Text>();
-        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
-    }
-
-    void unoverText(GameObject obj)
-    {
-        Text text = obj.GetComponent<Text>();
-        text.color = new Color(text.color.r, text.color.g, text.color.b, .5f);
     }
 
     void overImage(GameObject obj)
