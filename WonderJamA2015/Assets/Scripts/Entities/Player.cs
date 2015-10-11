@@ -204,7 +204,7 @@ public class Player : MonoBehaviour
             if(!ammo.isTouched())
             {
                 ammo.Touch();
-                float targetVelocityX = 100f * ammo.getDirection();
+                float targetVelocityX = 150f * ammo.getDirection();
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
                 velocity.y += gravity * Time.deltaTime;
                 controller.Move(velocity * Time.deltaTime);
