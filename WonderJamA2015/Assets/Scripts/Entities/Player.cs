@@ -211,8 +211,25 @@ public class Player : MonoBehaviour
             Aim aim = GetComponentInChildren<Aim>();
             AmmoInventory inventory = GameObject.FindGameObjectWithTag("World").GetComponent<AmmoInventory>();
             Ammo ammo = inventory.CreateAmmo(aim);
-            Vector2 force = new Vector3(aim.getX(), aim.getY());
-            ammo.GetComponent<Rigidbody2D>().AddForce(force);
+            ammo.setDirection(getFace());
+            Vector2 force = new Vector3(aim.getX()*getFace(), aim.getY());
+            ammo.GetComponent<Rigidbody2D>().AddForce(force*500);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag.Equals("Ammo"))
+        {
+            Ammo ammo = col.gameObject.GetComponent<Ammo>();
+            if(!ammo.isTouched())
+            {
+                ammo.Touch();
+                float targetVelocityX = 100f * ammo.getDirection();
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+                velocity.y += gravity * Time.deltaTime;
+                controller.Move(velocity * Time.deltaTime);
+            }
         }
     }
 }

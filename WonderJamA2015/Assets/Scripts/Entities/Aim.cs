@@ -7,6 +7,7 @@ public class Aim : MonoBehaviour
     float y = 0;
     public float RAYON = 2;
     public float SENSIBILITY = 0.1f;
+    public float ERROR_MARGIN = 0;
 
 	// Use this for initialization
 	void Start ()
@@ -20,9 +21,9 @@ public class Aim : MonoBehaviour
         ManageInput();
         float x = Mathf.Sqrt(Mathf.Pow(RAYON, 2) - Mathf.Pow(y, 2));
         if(owner.getFace() > 0)
-            transform.localPosition = new Vector3(x,y);
+            transform.localPosition = new Vector3(x + ERROR_MARGIN,y);
         else
-            transform.localPosition = new Vector3(-x, y);
+            transform.localPosition = new Vector3(-x + ERROR_MARGIN, y);
     }
 
     void ManageInput()
@@ -50,5 +51,10 @@ public class Aim : MonoBehaviour
     public float getY()
     {
         return y;
+    }
+
+    public Player getOwner()
+    {
+        return owner;
     }
 }
