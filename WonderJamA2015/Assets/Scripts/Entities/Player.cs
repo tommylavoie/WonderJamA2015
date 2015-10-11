@@ -225,7 +225,6 @@ public class Player : MonoBehaviour
             if(!ammo.isTouched())
             {
                 ammo.Touch();
-<<<<<<< HEAD
 
                 AudioManager audioManager = GameObject.FindGameObjectWithTag("World").GetComponent<AudioManager>();
 
@@ -238,10 +237,7 @@ public class Player : MonoBehaviour
                     case 3: audioManager.PlaySound(hitSound3); break;
                 }
 
-                float targetVelocityX = 100f * ammo.getDirection();
-=======
                 float targetVelocityX = 150f * ammo.getDirection();
->>>>>>> origin/master
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
                 velocity.y += gravity * Time.deltaTime;
                 controller.Move(velocity * Time.deltaTime);

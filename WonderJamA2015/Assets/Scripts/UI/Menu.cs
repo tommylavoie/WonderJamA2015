@@ -18,15 +18,20 @@ public class Menu : MonoBehaviour
 
     Image[] step1Texts;
     Image[] step2Texts;
+    AudioSource audioManager;
 
     public List<GameObject> PEmblem;
     public GameObject Tuto1;
     public GameObject Tuto2;
+
+    public AudioClip Move;
+    public AudioClip Select;
     public bool OneJoystick;
 
     // Use this for initialization
     void Start ()
     {
+        audioManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         step1Texts = new Image[] { FindImageWithName("Jouer"), FindImageWithName("Quitter") };
         step2Texts = new Image[] { FindImageWithName("2Joueurs"), FindImageWithName("3Joueurs"), FindImageWithName("4Joueurs") };
     }
@@ -35,6 +40,13 @@ public class Menu : MonoBehaviour
 	void Update ()
     {
         ManageInput();
+    }
+
+    void PlaySound(AudioClip clip)
+    {
+        audioManager.clip = clip;
+        audioManager.loop = false;
+        audioManager.Play();
     }
 
     Image FindImageWithName(string name)
@@ -86,6 +98,7 @@ public class Menu : MonoBehaviour
         {
             if (step == 0 && !firing)
             {
+                PlaySound(Select);
                 Image startText = FindImageWithName("StartPress");
                 Tuto1.GetComponent<SpriteRenderer>().enabled = true;
                 startText.enabled = false;
@@ -100,6 +113,7 @@ public class Menu : MonoBehaviour
         {
             if (step == 20 && !firing)
             {
+                PlaySound(Select);
                 firing = true;
                 Tuto1.GetComponent<SpriteRenderer>().enabled = false;
                 Tuto2.GetComponent<SpriteRenderer>().enabled = true;
@@ -116,6 +130,7 @@ public class Menu : MonoBehaviour
         {
             if (step == 21 && !firing)
             {
+                PlaySound(Select);
                 firing = true;
                 Image jouerText = FindImageWithName("Jouer");
                 Image quitterText = FindImageWithName("Quitter");
@@ -143,6 +158,7 @@ public class Menu : MonoBehaviour
                 if (actualCursor >= 2)
                     actualCursor = 0;
                 overImage(step1Texts[actualCursor].gameObject);
+                PlaySound(Move);
 
             }
             else if (vertical > 0 && !changing)
@@ -153,6 +169,7 @@ public class Menu : MonoBehaviour
                 if (actualCursor < 0)
                     actualCursor = 1;
                 overImage(step1Texts[actualCursor].gameObject);
+                PlaySound(Move);
             }
             else if (vertical == 0 && changing)
             {
@@ -161,6 +178,7 @@ public class Menu : MonoBehaviour
 
             if (fire && !firing)
             {
+                PlaySound(Select);
                 firing = true;
                 if (actualCursor == 1)
                     Application.Quit();
@@ -199,6 +217,7 @@ public class Menu : MonoBehaviour
                 if (actualCursor >= 3)
                     actualCursor = 0;
                 overImage(step2Texts[actualCursor].gameObject);
+                PlaySound(Move);
 
             }
             else if (vertical > 0 && !changing)
@@ -209,6 +228,7 @@ public class Menu : MonoBehaviour
                 if (actualCursor < 0)
                     actualCursor = 2;
                 overImage(step2Texts[actualCursor].gameObject);
+                PlaySound(Move);
             }
             else if (vertical == 0 && changing)
             {
@@ -217,6 +237,7 @@ public class Menu : MonoBehaviour
 
             if (fire && !firing)
             {
+                PlaySound(Select);
                 firing = true;
                 bool chose = false;
                 if (actualCursor == 0)
@@ -272,11 +293,13 @@ public class Menu : MonoBehaviour
             {
                 changing = true;
                 nextCharacter();
+                PlaySound(Move);
             }
             else if (horizontal < 0 && !changing)
             {
                 changing = true;
                 precCharacter();
+                PlaySound(Move);
             }
             else if (horizontal == 0 && changing)
             {

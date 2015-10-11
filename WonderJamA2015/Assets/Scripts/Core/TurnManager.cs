@@ -83,6 +83,8 @@ public class TurnManager : MonoBehaviour
                 Application.LoadLevel("Menu");
             }
         }
+        if (Input.GetButtonDown("Escape"))
+            Application.Quit();
 	}
 
     void startGame()
