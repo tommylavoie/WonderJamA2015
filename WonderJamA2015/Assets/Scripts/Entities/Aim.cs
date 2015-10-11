@@ -38,6 +38,15 @@ public class Aim : MonoBehaviour
         {
             aimAxis = Input.GetAxis("RightVB");
         }
+        else if (owner.getTurnNumber() == 2 && !owner.getO())
+        {
+            aimAxis = Input.GetAxis("RightVC");
+        }
+        else if (owner.getTurnNumber() == 3 && !owner.getO())
+        {
+            aimAxis = Input.GetAxis("RightVD");
+        }
+
         if (aimAxis != 0)
         {
             if(y <= RAYON)

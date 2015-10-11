@@ -65,12 +65,27 @@ public class Player : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         bool jump = Input.GetButtonDown("Fire1");
         bool shoot = Input.GetButton("Fire2");
+
         if (turnNumber == 1 && !OneJoystick)
         {
             horizontal = Input.GetAxis("HorizontalB");
             vertical = Input.GetAxis("VerticalB");
             jump = Input.GetButtonDown("Fire1B");
             shoot = Input.GetButton("Fire2B");
+        }
+        else if (turnNumber == 2 && !OneJoystick)
+        {
+            horizontal = Input.GetAxis("HorizontalC");
+            vertical = Input.GetAxis("VerticalC");
+            jump = Input.GetButtonDown("Fire1C");
+            shoot = Input.GetButton("Fire2C");
+        }
+        else if(turnNumber == 3 && !OneJoystick)
+        {
+            horizontal = Input.GetAxis("HorizontalD");
+            vertical = Input.GetAxis("VerticalD");
+            jump = Input.GetButtonDown("Fire1D");
+            shoot = Input.GetButton("Fire2D");
         }
         Vector2 input = new Vector2(0, 0);
         if (isTurn && inGame)
