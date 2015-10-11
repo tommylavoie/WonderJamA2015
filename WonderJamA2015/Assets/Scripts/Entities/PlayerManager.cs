@@ -14,6 +14,9 @@ public class PlayerManager : MonoBehaviour
             GameObject[] nodes = GameObject.FindGameObjectsWithTag("Nodes");
             string player1choice = PlayerPrefs.GetString("Player1");
             string player2choice = PlayerPrefs.GetString("Player2");
+            string player3choice = PlayerPrefs.GetString("Player3");
+            string player4choice = PlayerPrefs.GetString("Player4");
+
             foreach (Player player in players)
             {
                 if (player.name.Equals(player1choice))
@@ -35,6 +38,26 @@ public class PlayerManager : MonoBehaviour
                             player.transform.position = node.transform.position;
                     }
                     player.setTurnNumber(1);
+                }
+                if (player.name.Equals(player3choice))
+                {
+                    player.setInGame(true);
+                    foreach (GameObject node in nodes)
+                    {
+                        if (node.GetComponent<StartNode>().Player == 2)
+                            player.transform.position = node.transform.position;
+                    }
+                    player.setTurnNumber(2);
+                }
+                if (player.name.Equals(player4choice))
+                {
+                    player.setInGame(true);
+                    foreach (GameObject node in nodes)
+                    {
+                        if (node.GetComponent<StartNode>().Player == 3)
+                            player.transform.position = node.transform.position;
+                    }
+                    player.setTurnNumber(3);
                 }
             }
         }
