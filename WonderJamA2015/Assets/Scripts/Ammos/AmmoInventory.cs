@@ -18,7 +18,7 @@ public class AmmoInventory : MonoBehaviour
 
     public Ammo CreateAmmo(Aim aim)
     {
-        ammo.transform.position = aim.transform.position;
+        ammo.transform.position = new Vector2(aim.transform.position.x+(1*aim.getOwner().getFace()), aim.transform.position.y);
         GameObject go = Instantiate(ammo);
         return go.GetComponent<Ammo>();
     }

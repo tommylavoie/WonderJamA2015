@@ -47,22 +47,29 @@ public class Menu : MonoBehaviour
         }
         if (step == 1)
         {
-            if (Input.GetAxis("Horizontal") > 0 && !changingCharacter)
+            float horizontal = Input.GetAxis("Horizontal");
+            bool fire = Input.GetButtonDown("Fire1");
+            if (playerSelection == 1)
+            {
+                horizontal = Input.GetAxis("HorizontalB");
+                fire = Input.GetButtonDown("Fire1B");
+            }
+            if (horizontal > 0 && !changingCharacter)
             {
                 changingCharacter = true;
                 nextCharacter();
             }
-            else if (Input.GetAxis("Horizontal") < 0 && !changingCharacter)
+            else if (horizontal < 0 && !changingCharacter)
             {
                 changingCharacter = true;
                 precCharacter();
             }
-            else if(Input.GetAxis("Horizontal") == 0 && changingCharacter)
+            else if(horizontal == 0 && changingCharacter)
             {
                 changingCharacter = false;
             }
 
-            if(Input.GetButtonDown("Fire1"))
+            if(fire)
             {
                 chooseCharacter();
             }
