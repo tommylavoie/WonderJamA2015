@@ -35,6 +35,9 @@ public class BlocManager : MonoBehaviour
             map = getNewMap(Lines, Columns);
             for (int i = 0; i < Lines; i++)
             {
+                if (i == 52)
+                    ObstaclesPerLine = ObstaclesPerLine-2;
+
                 bool[] occupied = new bool[Columns];
                 for (int k = 0; k < occupied.Length; k++)
                 {
@@ -47,29 +50,49 @@ public class BlocManager : MonoBehaviour
                         platformSelect = 0;
                     else
                     {
-                        if (i <=10)
+                        if (i <=9)
                         {
                             platformSelect = RNG(0, 3);
                         }
                         else
                         {
-                             if ( i <=20)
+                            if ( i <=32)
                             {
                                 platformSelect = RNG(4, 8);
                             }
-                             else
-                             {
-                                 platformSelect = RNG(9, 15);
-                             }
+                            else
+                            {
+                                if( i <=42)
+                                {
+                                    platformSelect = RNG(9, 14);
+                                }
+                                else
+                                {
+                                    platformSelect = RNG(9, 15);
+                                }
+                            }
                         }
-                       
-
                     }
                     bool available = false;
                     int column = 0;
                     while (!available)
                     {
-                        column = RNG(0, Columns);
+                        if (i <= 42)
+                        {
+                            column = RNG(0, Columns);
+                        }
+                        else
+                        {
+                            if (i <= 52)
+                            {
+                                column = RNG(1, Columns - 1);
+                            }
+                            else
+                            {
+                                column = RNG(2, Columns - 2);
+                            }
+                            
+                        }
                         if (!occupied[column])
                             available = true;
                     }
@@ -119,9 +142,9 @@ public class BlocManager : MonoBehaviour
                     Vector3 position = new Vector3(x, y);
 
                     //Si l'obstacle est un oiseau
-                    if (Obstacles[map[i, j]].CompareTag("leftMovementBird"))
+                    if (Obstacles[map[i, j]].CompareTag("leftDirectionBird"))
                     {
-                        position.x += Random.Range(10.0F, 35.0F);
+                        position.x += Random.Range(30.0F, 75.0F);
                     }
                     Instantiate(Obstacles[map[i,j]], position, Quaternion.identity);
                 }
