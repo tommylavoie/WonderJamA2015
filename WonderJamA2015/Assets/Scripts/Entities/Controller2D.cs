@@ -85,6 +85,21 @@ public class Controller2D : RaycastController
 
                     collisions.left = directionX == -1;
                     collisions.right = directionX == 1;
+
+                    if (directionX == -1)
+                    {
+                        collisions.left = true;
+                        collisions.transformHitLeft = hit.transform;
+                    }
+                    else
+                        collisions.left = false;
+                    if (directionX == 1)
+                    {
+                        collisions.right = true;
+                        collisions.transformHitRight = hit.transform;
+                    }
+                    else
+                        collisions.right = false;
                 }
             }
         }
@@ -222,6 +237,8 @@ public class Controller2D : RaycastController
         public Vector3 velocityOld;
         public Transform transformHitAbove;
         public Transform transformHitBelow;
+        public Transform transformHitLeft;
+        public Transform transformHitRight;
 
         public void Reset()
         {

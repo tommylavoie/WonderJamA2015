@@ -23,6 +23,10 @@ public class Player : MonoBehaviour
     int face = 1;
     int turnNumber = 0;
 
+    public AudioClip Debut;
+    public AudioClip Attack;
+    public AudioClip Victoire;
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -58,7 +62,40 @@ public class Player : MonoBehaviour
             }
             if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
             {
-                Debug.Log("ALLO");
+                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
+                turnManager.EndGame(this);
+            }
+        }
+
+        if (controller.collisions.left)
+        {
+            velocity.y = 0;
+            Collider2D obstacle = controller.collisions.transformHitLeft.GetComponent<Collider2D>();
+
+            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            {
+                obstacle.gameObject.layer = LayerMask.NameToLayer("ObstacleThrough");
+            }
+            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
+            {
+                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
+                turnManager.EndGame(this);
+            }
+        }
+
+        if (controller.collisions.right)
+        {
+            velocity.y = 0;
+            Collider2D obstacle = controller.collisions.transformHitRight.GetComponent<Collider2D>();
+
+            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            {
+                obstacle.gameObject.layer = LayerMask.NameToLayer("ObstacleThrough");
+            }
+            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
+            {
+                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
+                turnManager.EndGame(this);
             }
         }
 

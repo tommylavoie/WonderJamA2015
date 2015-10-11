@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
+    AudioManager audioManager;
     PlayerManager playerManager;
     public float TimePerTurn = 5;
     bool isEnding = false;
@@ -19,6 +20,7 @@ public class TurnManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        audioManager = GameObject.FindGameObjectWithTag("World").GetComponent<AudioManager>();
         playerManager = GetComponent<PlayerManager>();
         player = playerManager.players[0];
         playersInGame = new List<Player>();
@@ -34,7 +36,7 @@ public class TurnManager : MonoBehaviour
         CameraScript cam = (CameraScript)(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>());
         EndGoal end = GameObject.FindGameObjectWithTag("Goal").GetComponent<EndGoal>();
         cam.DirectGoTo(new Vector3(end.transform.position.x, playerManager.players[0].transform.position.y, -10));
-        Invoke("startGame", 4);
+        Invoke("startGame", 5);
     }
 
     void sortPlayers()
@@ -65,7 +67,7 @@ public class TurnManager : MonoBehaviour
             else
             {
                 EndGoal end = GameObject.FindGameObjectWithTag("Goal").GetComponent<EndGoal>();
-                FollowCameraToGoal(end, 2f);
+                FollowCameraToGoal(end, 1f);
             }
         }
 	}
@@ -89,6 +91,7 @@ public class TurnManager : MonoBehaviour
         player.setTurn(false);
         player = playersInGame[turn];
         player.setTurn(true);
+        audioManager.PlaySound(player.Debut);
         turnTime = DateTime.Now;
         Invoke("EndTurn", TimePerTurn);
     }
@@ -123,6 +126,7 @@ public class TurnManager : MonoBehaviour
                 player.setInGame(false);
                 player.setTurn(false);
             }
+            audioManager.PlaySound(winner.Victoire);
         }
     }
 }
