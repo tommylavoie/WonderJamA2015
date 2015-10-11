@@ -69,13 +69,19 @@ public class Player : MonoBehaviour
 
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
-                GetComponent<Animator>().Play("Walk");
+                GetComponent<Animator>().SetBool("Idle2Walk", true);
                 setFace(1);
             }
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
-                GetComponent<Animator>().Play("Walk2");
+                GetComponent<Animator>().SetBool("Idle2Walk2", true);
                 setFace(-1);
+            }
+            if (Input.GetAxisRaw("Horizontal") == 0)
+            {
+                GetComponent<Animator>().SetBool("Idle2Walk", false);
+                GetComponent<Animator>().SetBool("Idle2Walk2", false);
+                setFace(1);
             }
 
             if (Input.GetButtonDown("Fire1") && controller.collisions.below)
@@ -85,8 +91,8 @@ public class Player : MonoBehaviour
 
             if (Input.GetButton("Fire2"))
             {
-                GetComponent<Animator>().SetBool("Swag", true);
-                //GetComponent<Animator>().Play("Throw");
+                GetComponent<Animator>().SetBool("Idle2Throw", true);
+                GetComponent<Animator>().SetBool("WalkToThrow", true);
             }
         }
 
@@ -94,6 +100,12 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void fermerAnimationThrow()
+    {
+        GetComponent<Animator>().SetBool("Idle2Throw", false);
+        GetComponent<Animator>().SetBool("WalkToThrow", false);
     }
 
     void initTurn()
@@ -105,6 +117,9 @@ public class Player : MonoBehaviour
         else
         {
             GetComponentInChildren<Aim>().gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Animator>().SetBool("Idle2Walk", false);
+            GetComponent<Animator>().SetBool("Idle2Walk2", false);
+            fermerAnimationThrow();
         }
     }
 
