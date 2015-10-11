@@ -20,6 +20,8 @@ public class Menu : MonoBehaviour
     Image[] step2Texts;
 
     public List<GameObject> PEmblem;
+    public GameObject Tuto1;
+    public GameObject Tuto2;
     public bool OneJoystick;
 
     // Use this for initialization
@@ -74,26 +76,59 @@ public class Menu : MonoBehaviour
         ManageStep1(horizontal, vertical, fire);
         ManageStep2(horizontal, vertical, fire);
         ManageStep3(horizontal, vertical, fire);
+        ManageStepA(horizontal, vertical, fire);
+        ManageStepB(horizontal, vertical, fire);
     }
 
     void ManageStep0(float horizontal, float vertical, bool fire)
     {
         if (Input.GetButtonDown("Start"))
         {
-            if (step == 0)
+            if (step == 0 && !firing)
             {
-
                 Image startText = FindImageWithName("StartPress");
+                Tuto1.GetComponent<SpriteRenderer>().enabled = true;
+                startText.enabled = false;
+                step = 20;
+            }
+        }
+    }
+
+    void ManageStepA(float horizontal, float vertical, bool fire)
+    {
+        if (fire)
+        {
+            if (step == 20 && !firing)
+            {
+                firing = true;
+                Tuto1.GetComponent<SpriteRenderer>().enabled = false;
+                Tuto2.GetComponent<SpriteRenderer>().enabled = true;
+                step = 21;
+            }
+        }
+        else
+            firing = false;
+    }
+
+    void ManageStepB(float horizontal, float vertical, bool fire)
+    {
+        if (fire)
+        {
+            if (step == 21 && !firing)
+            {
+                firing = true;
                 Image jouerText = FindImageWithName("Jouer");
                 Image quitterText = FindImageWithName("Quitter");
+                Tuto2.GetComponent<SpriteRenderer>().enabled = false;
 
                 jouerText.enabled = true;
                 quitterText.enabled = true;
-                startText.enabled = false;
                 overImage(jouerText.gameObject);
                 step = 1;
             }
         }
+        else
+            firing = false;
     }
 
     void ManageStep1(float horizontal, float vertical, bool fire)
