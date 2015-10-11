@@ -20,7 +20,6 @@ public class StartText : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Text startText = GetComponent<Text>();
         velocity = move * Time.deltaTime;
 
         time += Time.deltaTime;

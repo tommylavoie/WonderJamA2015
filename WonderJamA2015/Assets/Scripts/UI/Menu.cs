@@ -16,15 +16,16 @@ public class Menu : MonoBehaviour
     int player2choice = -1;
     int[] playerChoices;
 
-    Text[] step1Texts;
+    Image[] step1Texts;
     Text[] step2Texts;
 
+    public List<GameObject> PEmblem;
     public bool OneJoystick;
 
     // Use this for initialization
     void Start ()
     {
-        step1Texts = new Text[] { FindTextWithName("Jouer"), FindTextWithName("Quitter") };
+        step1Texts = new Image[] { FindImageWithName("Jouer"), FindImageWithName("Quitter") };
         step2Texts = new Text[] { FindTextWithName("2Joueurs"), FindTextWithName("3Joueurs"), FindTextWithName("4Joueurs") };
     }
 	
@@ -41,6 +42,17 @@ public class Menu : MonoBehaviour
         {
             if (textObject.GetComponent<MenuText>().Name.Equals(name))
                 return textObject.GetComponent<Text>();
+        }
+        return null;
+    }
+
+    Image FindImageWithName(string name)
+    {
+        GameObject[] texts = GameObject.FindGameObjectsWithTag("MenuText");
+        foreach (GameObject textObject in texts)
+        {
+            if (textObject.GetComponent<MenuText>().Name.Equals(name))
+                return textObject.GetComponent<Image>();
         }
         return null;
     }
@@ -70,14 +82,14 @@ public class Menu : MonoBehaviour
             if (step == 0)
             {
 
-                Text startText = FindTextWithName("StartPress");
-                Text jouerText = FindTextWithName("Jouer");
-                Text quitterText = FindTextWithName("Quitter");
+                Image startText = FindImageWithName("StartPress");
+                Image jouerText = FindImageWithName("Jouer");
+                Image quitterText = FindImageWithName("Quitter");
 
                 jouerText.enabled = true;
                 quitterText.enabled = true;
                 startText.enabled = false;
-                overText(jouerText.gameObject);
+                overImage(jouerText.gameObject);
                 step = 1;
             }
         }
@@ -87,24 +99,24 @@ public class Menu : MonoBehaviour
     {
         if (step == 1)
         {
-            if (vertical > 0 && !changing)
+            if (vertical < 0 && !changing)
             {
                 changing = true;
-                unoverText(step1Texts[actualCursor].gameObject);
+                unoverImage(step1Texts[actualCursor].gameObject);
                 actualCursor++;
                 if (actualCursor >= 2)
                     actualCursor = 0;
-                overText(step1Texts[actualCursor].gameObject);
+                overImage(step1Texts[actualCursor].gameObject);
 
             }
-            else if (vertical < 0 && !changing)
+            else if (vertical > 0 && !changing)
             {
                 changing = true;
-                unoverText(step1Texts[actualCursor].gameObject);
+                unoverImage(step1Texts[actualCursor].gameObject);
                 actualCursor--;
                 if (actualCursor < 0)
                     actualCursor = 1;
-                overText(step1Texts[actualCursor].gameObject);
+                overImage(step1Texts[actualCursor].gameObject);
             }
             else if (vertical == 0 && changing)
             {
@@ -119,8 +131,8 @@ public class Menu : MonoBehaviour
                 else
                 {
                     actualCursor = 0;
-                    Text jouerText = FindTextWithName("Jouer");
-                    Text quitterText = FindTextWithName("Quitter");
+                    Image jouerText = FindImageWithName("Jouer");
+                    Image quitterText = FindImageWithName("Quitter");
                     Text joueurs2Text = FindTextWithName("2Joueurs");
                     Text joueurs3Text = FindTextWithName("3Joueurs");
                     Text joueurs4Text = FindTextWithName("4Joueurs");
@@ -193,7 +205,7 @@ public class Menu : MonoBehaviour
                     for (int i = 0; i < 4; i++)
                         playerChoices[i] = -1;
                     actualCursor = 0;
-                    Text choiceText = FindTextWithName("Choisir");
+                    Image choiceText = FindImageWithName("Choisir");
                     Text joueurs2Text = FindTextWithName("2Joueurs");
                     Text joueurs3Text = FindTextWithName("3Joueurs");
                     Text joueurs4Text = FindTextWithName("4Joueurs");
@@ -293,13 +305,25 @@ public class Menu : MonoBehaviour
     void overText(GameObject obj)
     {
         Text text = obj.GetComponent<Text>();
-        text.color = new Color(text.color.r, text.color.g, text.color.b, .5f);
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
     }
 
     void unoverText(GameObject obj)
     {
         Text text = obj.GetComponent<Text>();
+        text.color = new Color(text.color.r, text.color.g, text.color.b, .5f);
+    }
+
+    void overImage(GameObject obj)
+    {
+        Image text = obj.GetComponent<Image>();
         text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
+    }
+
+    void unoverImage(GameObject obj)
+    {
+        Image text = obj.GetComponent<Image>();
+        text.color = new Color(text.color.r, text.color.g, text.color.b, .5f);
     }
 
     void chooseCharacter()
@@ -312,12 +336,21 @@ public class Menu : MonoBehaviour
         SpriteRenderer renderer = faces[actualCursor].GetComponent<SpriteRenderer>();
         renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, .5f);
         playerChoices[playerSelection] = actualCursor;
+        placeEmblem(playerSelection);
         nextPlayer();
         if(playerSelection >= numberOfPlayers)
         {
+            SpriteRenderer fleche = (SpriteRenderer)GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
+            fleche.enabled = false;
+            faces[actualCursor].GetComponent<MenuFace>().Unselect();
             step++;
             Invoke("startGame", 2) ;
         }
+    }
+
+    void placeEmblem(int player)
+    {
+        PEmblem[player].transform.position = new Vector2(faces[actualCursor].transform.position.x, faces[0].transform.position.y + 2.5f);
     }
 
     string getCharacter(int position)
