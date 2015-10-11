@@ -50,11 +50,6 @@ public class Player : MonoBehaviour
             {
                 obstacle.gameObject.layer = LayerMask.NameToLayer("Obstacle");
             }
-            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
-            {
-                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
-                turnManager.EndGame(this);
-            }
         }
 
         if(controller.collisions.above)
@@ -63,43 +58,6 @@ public class Player : MonoBehaviour
             if (obstacle.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
                 obstacle.gameObject.layer = LayerMask.NameToLayer("ObstacleThrough");
-            }
-            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
-            {
-                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
-                turnManager.EndGame(this);
-            }
-        }
-
-        if (controller.collisions.left)
-        {
-            velocity.y = 0;
-            Collider2D obstacle = controller.collisions.transformHitLeft.GetComponent<Collider2D>();
-
-            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-            {
-                obstacle.gameObject.layer = LayerMask.NameToLayer("ObstacleThrough");
-            }
-            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
-            {
-                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
-                turnManager.EndGame(this);
-            }
-        }
-
-        if (controller.collisions.right)
-        {
-            velocity.y = 0;
-            Collider2D obstacle = controller.collisions.transformHitRight.GetComponent<Collider2D>();
-
-            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-            {
-                obstacle.gameObject.layer = LayerMask.NameToLayer("ObstacleThrough");
-            }
-            if (obstacle.gameObject.layer == LayerMask.NameToLayer("Goal"))
-            {
-                TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
-                turnManager.EndGame(this);
             }
         }
 
@@ -251,6 +209,12 @@ public class Player : MonoBehaviour
                 velocity.y += gravity * Time.deltaTime;
                 controller.Move(velocity * Time.deltaTime);
             }
+        }
+
+        if(col.gameObject.tag.Equals("Goal"))
+        {
+            TurnManager turnManager = GameObject.FindGameObjectWithTag("World").GetComponent<TurnManager>();
+            turnManager.EndGame(this);
         }
     }
 }
