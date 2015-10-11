@@ -103,7 +103,7 @@ public class BlocManager : MonoBehaviour
 
     bool isMapPossible(int[,] map)
     {
-        List<Point> visited = new List<Point>();
+        int[,] visited = getNewMap(Lines, Columns);
         for (int i=0;i< Columns;i++)
         {
             if (isMapPossible(map, 0, i, visited))
@@ -112,15 +112,15 @@ public class BlocManager : MonoBehaviour
         return false;
     }
 
-    bool isMapPossible(int[,] map, int line, int column, List<Point> visited)
+    bool isMapPossible(int[,] map, int line, int column, int[,] visited)
     {
         bool possible = false;
         Point actual = new Point(line, column);
         if (isFinalPoint(actual))
             return true;
-        if (isRealPoint(actual) && map[line,column] != -1 && !isVisited(actual,visited))
+        if (isRealPoint(actual) && map[line,column] != -1 && visited[line,column] != 1)
         {
-            visited.Add(actual);
+            visited[line, column] = 1;
             if (isMapPossible(map, line, column - 1, visited))
                 possible = true;
             else if (isMapPossible(map, line, column + 1, visited))
@@ -131,7 +131,6 @@ public class BlocManager : MonoBehaviour
                 possible = true;
             else if (isMapPossible(map, line + 1, column + 1, visited))
                 possible = true;
-            visited.Remove(actual);
         }
         return possible;
     }
@@ -150,16 +149,6 @@ public class BlocManager : MonoBehaviour
             return true;
         else
             return false;
-    }
-
-    bool isVisited(Point actual, List<Point> visited)
-    {
-        foreach (Point point in visited)
-        {
-            if (actual.x == point.x && actual.y == point.y)
-                return true;
-        }
-        return false;
     }
 
     int[,] getNewMap(int lines, int columns)
